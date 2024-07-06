@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   append_node.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/03 11:03:25 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/06 11:05:13 by lnierobi         ###   ########.fr       */
+/*   Created: 2024/07/06 12:10:19 by lnierobi          #+#    #+#             */
+/*   Updated: 2024/07/06 12:14:24 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "push_swap.h"
 
-# include "ft_printf/ft_printf.h"
-# include "libft/libft.h"
-# include <limits.h>
-# include <stdbool.h>
-
-typedef struct s_stack_node
+static void append_node(t_stack_node **stack, int n)
 {
-	int					nbr;
-	int					index;
-	int					push_cost;
-	bool				above_median;
-	bool				cheapest;
-	struct s_stack_node	*target_node;
-	struct s_stack_node	*next;
-	struct s_stack_node	*prev;
-}						t_stack_node;
+	t_stack_node	*node;
+	t_stack_node	*last_node;
 
-#endif
+	if(!stack)
+		return;
+
+}
