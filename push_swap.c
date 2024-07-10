@@ -21,6 +21,7 @@ void	ft_putlst(t_list *mylst)
 	{
 		ft_printf("LISTITEM:\n");
 		current = current->next;
+		ft_printf("remove me later");
 	}
 }
 
