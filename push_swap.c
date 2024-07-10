@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:27:03 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/05 11:22:44 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/07/10 14:51:06 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	main(int argc, char *argv[])
 	a = NULL;
 	b = NULL;
 
-	if (!argv[1][0] && argc == 2 || argc == 1)
+	if ((!argv[1][0] && argc == 2) || (argc == 1))
 	{
 		ft_printf("Error! please insert minimum 3 numbers!");
 		return (1);
@@ -52,12 +52,12 @@ int	main(int argc, char *argv[])
 		}
 		free_stack(&a);
 		return (0);
+	}
+}
 		// wenns normale zahlen sind ohne "" sofort in stack a
 		// wenns in "" dann ft_split den string in Zahlen umwandeln und dann in stuck a rein
 		// dann von stack a in stuck b indexieren
 		// und dann die move funktionen benutzen um es nach der indexierung zu sortieren und alle zahlen in stuck a zurueck zu geben und dann fertig
-	}
-
 	/* 1. zuerst argv argc bauen das es unendlich zahlen aufnhemen kann auch wenn man das als 1 sting hat also "zahlenzeugs zahl zahl" das man den langem string umwandelt in die einzelnen zahlen mit ft_split.
 	2. dann die 2 stucks bauen a und b also alles was argc aufnimmt muss gleich in stack a rein gehen linked list oder array ist ein stack
 	3. dann muss ich die ganzen Funktionen fuer die moves bauen sa sb ss pa pb ra rb rr rra rrb rrr die muessen jedes mal auf dem Bildschirm geprintet werden wenn man das benuzt.
@@ -72,4 +72,18 @@ schauen welches sortierung am guenstigsten ist und sortieren
 schritte ausgeben
 ende
 */
+
+
+void	free_stack(char **numbers)
+{
+	int	i;
+
+	i = 0;
+	while (numbers[i])
+	{
+		free(numbers[i]);
+		i++;
+	}
+	free(numbers);
 }
+

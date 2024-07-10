@@ -1,38 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   append_node.c                                      :+:      :+:    :+:   */
+/*   current_index.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/06 12:10:19 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/08 11:54:14 by lnierobi         ###   ########.fr       */
+/*   Created: 2024/07/08 12:31:37 by lnierobi          #+#    #+#             */
+/*   Updated: 2024/07/08 12:39:55 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	append_node(t_stack_node **stack, int n)
+void	current_index(t_stack_node *stack)
 {
-	t_stack_node	*node;
-	t_stack_node	*last_node;
+	int i;
+	int median;
+	i = 0;
 
 	if (!stack)
 		return ;
-	node = malloc(sizeof(t_stack_node));
-	if (!node)
-		return ;
-	node->next = NULL;
-	node->nbr = n;
-	if (!(*stack))
+	median = stack_len(stack) / 2;
+	while (stack)
 	{
-		*stack = node;
-		node->prev = NULL;
-	}
-	else
-	{
-		last_node = find_last(*stack);
-		last_node->next = node;
-		node->prev = last_node;
+		stack->index = i;
+		if (i <= median)
+			stack->above_median = true;
+		else
+			stack->above_median = false;
+		stack = stack->next;
+		++i;
 	}
 }

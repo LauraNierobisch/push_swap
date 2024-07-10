@@ -1,38 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   append_node.c                                      :+:      :+:    :+:   */
+/*   prep_for_push.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/06 12:10:19 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/08 11:54:14 by lnierobi         ###   ########.fr       */
+/*   Created: 2024/07/09 17:29:33 by lnierobi          #+#    #+#             */
+/*   Updated: 2024/07/09 17:38:12 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	append_node(t_stack_node **stack, int n)
+void	prep_for_push(t_stack_node **stack, t_stack_node *top_node,
+		char stack_name)
 {
-	t_stack_node	*node;
-	t_stack_node	*last_node;
-
-	if (!stack)
-		return ;
-	node = malloc(sizeof(t_stack_node));
-	if (!node)
-		return ;
-	node->next = NULL;
-	node->nbr = n;
-	if (!(*stack))
+	while (*stack != top_node)
 	{
-		*stack = node;
-		node->prev = NULL;
-	}
-	else
-	{
-		last_node = find_last(*stack);
-		last_node->next = node;
-		node->prev = last_node;
+		if (stack_name == 'a')
+		{
+			if (top_node->above_median)
+				ra(stack, false);
+			else
+				rra(stack, false);
+		}
+		else if (stack_name == 'b')
+		{
+			if (top_node->above_median)
+				rb(stack, false);
+			else
+				rrb(stack, false);
+		}
 	}
 }

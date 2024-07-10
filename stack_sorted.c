@@ -1,38 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   append_node.c                                      :+:      :+:    :+:   */
+/*   stack_sorted.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/06 12:10:19 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/08 11:54:14 by lnierobi         ###   ########.fr       */
+/*   Created: 2024/07/06 12:25:14 by lnierobi          #+#    #+#             */
+/*   Updated: 2024/07/10 12:32:38 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	append_node(t_stack_node **stack, int n)
+bool	stack_sorted(t_stack_node *stack)
 {
-	t_stack_node	*node;
-	t_stack_node	*last_node;
+	if (!stack)
+		return (1);
+	while (stack->next)
+	{
+		if (stack->nbr > stack->next->nbr)
+			return (0);
+		stack = stack->next;
+	}
+	return (1);
+}
+
+t_stack_node	*find_min(t_stack_node *stack)
+{
+	long min;
+	t_stack_node *min_node;
 
 	if (!stack)
-		return ;
-	node = malloc(sizeof(t_stack_node));
-	if (!node)
-		return ;
-	node->next = NULL;
-	node->nbr = n;
-	if (!(*stack))
+		return (NULL);
+	min = LONG_MAX;
+	while (stack)
 	{
-		*stack = node;
-		node->prev = NULL;
+		if (stack->nbr < min)
+		{
+			min = stack->nbr;
+			min_node = stack;
+		}
+		stack = stack->next;
 	}
-	else
-	{
-		last_node = find_last(*stack);
-		last_node->next = node;
-		node->prev = last_node;
-	}
+	return (min_node);
 }
