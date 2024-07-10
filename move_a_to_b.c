@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 13:19:45 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/10 12:28:36 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/07/10 15:14:04 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,6 @@ void	min_on_top(t_stack_node **a)
 			ra(a, false);
 		else
 			rra(a, false);
+		
 	}
 }
