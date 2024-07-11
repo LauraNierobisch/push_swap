@@ -7,7 +7,7 @@ typedef struct s_list
 	void *content;
 	struct s_list *next;
 } t_list;
-
+//libft
 t_list	*ft_lstnew(void *content)
 {
 	t_list	*new_node;
@@ -21,7 +21,17 @@ t_list	*ft_lstnew(void *content)
 	new_node->next = NULL;
 	return (new_node);
 }
-
+//libft
+void	ft_lstadd_front(t_list **lst, t_list *new)
+{
+	if (!lst || !new)
+	{
+		return ;
+	}
+	new->next = *lst;
+	*lst = new;
+}
+//libft
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
 	t_list	*last;
@@ -43,8 +53,32 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	last->next = new;
 }
 
+//new list function
+void free_list(t_list *head)
+{
+	t_list *temp;
+	while (head != NULL)
+	{
+		temp = head;
+		head = head->next;
+		free(temp->content);
+		free(temp);
+	}
+}
 
-void split(const char *str, t_list **head)
+//new list function
+void ft_lstremove_front(t_list **lst)
+{
+	if(lst == NULL || *lst == NULL)
+	{
+ return;
+}
+t_list*temp = *lst;
+*lst = (*lst)->next;
+free(temp->content);
+free(temp);
+}
+void new_split(const char *str, t_list **head)
 {
 int num = 0;
 int in_number = 0;
@@ -84,6 +118,7 @@ free(num_ptr);
 }
 
 
+
 int main(int argc, char *argv[])
 {
 	if (argc < 2)
@@ -96,7 +131,7 @@ if (argc == 2)
 {
 	const char *str = argv[1];
 
-	split(str, &head);
+	new_split(str, &head);
 
 	else
 	{
@@ -114,14 +149,7 @@ if (argc == 2)
 	}
 
 	//Funktion mit der ich dann die Zahlen sortiere
-	t_list *temp;
-	while (head != NULL)
-	{
-		temp = head;
-		head = head->next;
-		free(temp->content);
-		free(temp);
-	}
+
 	return (0);
 }
 
