@@ -31,4 +31,4 @@ void	current_index(t_stack_node *stack)
 		stack = stack->next;
 		++i;
 	}
-}
+

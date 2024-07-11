@@ -35,7 +35,7 @@ int	main(int argc, char *argv[])
 
 	if ((!argv[1][0] && argc == 2) || (argc == 1))
 	{
-		ft_printf("Error! please insert minimum 3 numbers!");
+		ft_printf("Error!");
 		return (1);
 	}
 	if (argc == 2)
