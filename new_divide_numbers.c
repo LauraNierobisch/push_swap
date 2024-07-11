@@ -1,13 +1,13 @@
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
 
 typedef struct s_list
 {
-	void *content;
-	struct s_list *next;
-} t_list;
-//libft
+	void			*content;
+	struct s_list	*next;
+}					t_list;
+// libft
 t_list	*ft_lstnew(void *content)
 {
 	t_list	*new_node;
@@ -21,7 +21,7 @@ t_list	*ft_lstnew(void *content)
 	new_node->next = NULL;
 	return (new_node);
 }
-//libft
+// libft
 void	ft_lstadd_front(t_list **lst, t_list *new)
 {
 	if (!lst || !new)
@@ -31,7 +31,7 @@ void	ft_lstadd_front(t_list **lst, t_list *new)
 	new->next = *lst;
 	*lst = new;
 }
-//libft
+// libft
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
 	t_list	*last;
@@ -53,10 +53,11 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	last->next = new;
 }
 
-//new list function
-void free_list(t_list *head)
+// new list function
+void	free_list(t_list *head)
 {
-	t_list *temp;
+	t_list	*temp;
+
 	while (head != NULL)
 	{
 		temp = head;
@@ -66,90 +67,108 @@ void free_list(t_list *head)
 	}
 }
 
-//new list function
-void ft_lstremove_front(t_list **lst)
+// new list function
+void	ft_lstremove_front(t_list **lst)
 {
-	if(lst == NULL || *lst == NULL)
+	t_list	*temp;
+
+	if (lst == NULL || *lst == NULL)
 	{
- return;
+		return ;
+	}
+	temp = *lst;
+	*lst = (*lst)->next;
+	free(temp->content);
+	free(temp);
 }
-t_list*temp = *lst;
-*lst = (*lst)->next;
-free(temp->content);
-free(temp);
-}
-void new_split(const char *str, t_list **head)
+void	new_split(const char *str, t_list **head)
 {
-int num = 0;
-int in_number = 0;
+	int		num;
+	int		in_number;
+	int		*num_ptr;
+	t_list	*new_node;
+	int		*num_ptr;
+	t_list	*new_node;
 
-while (*str != '\0') {
-if (isdigit(*str)) {
-num = num * 10 + (*str - '0');
-in_number = 1;
-} else if (in_number) {
-int *num_ptr = malloc(sizeof(int));
-if (num_ptr != NULL) {
-*num_ptr = num;
-t_list *new_node = ft_lstnew(num_ptr);
-if (new_node != NULL) {
-ft_lstadd_back(head, new_node);
-} else {
-free(num_ptr);
-}
-}
-num = 0;
-in_number = 0;
-}
-str++;
-}
-if (in_number) {
-int *num_ptr = malloc(sizeof(int));
-if (num_ptr != NULL) {
-*num_ptr = num;
-t_list *new_node = ft_lstnew(num_ptr);
-if (new_node != NULL) {
-ft_lstadd_back(head, new_node);
-} else {
-free(num_ptr);
-}
-}
-}
+	num = 0;
+	in_number = 0;
+	while (*str != '\0')
+	{
+		if (isdigit(*str))
+		{
+			num = num * 10 + (*str - '0');
+			in_number = 1;
+		}
+		else if (in_number)
+		{
+			num_ptr = malloc(sizeof(int));
+			if (num_ptr != NULL)
+			{
+				*num_ptr = num;
+				new_node = ft_lstnew(num_ptr);
+				if (new_node != NULL)
+				{
+					ft_lstadd_back(head, new_node);
+				}
+				else
+				{
+					free(num_ptr);
+				}
+			}
+			num = 0;
+			in_number = 0;
+		}
+		str++;
+	}
+	if (in_number)
+	{
+		num_ptr = malloc(sizeof(int));
+		if (num_ptr != NULL)
+		{
+			*num_ptr = num;
+			new_node = ft_lstnew(num_ptr);
+			if (new_node != NULL)
+			{
+				ft_lstadd_back(head, new_node);
+			}
+			else
+			{
+				free(num_ptr);
+			}
+		}
+	}
 }
 
-
-
-int main(int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
 	if (argc < 2)
 	{
-	ft_printf("Error!\n");
-	return 1;
+		ft_printf("Error!\n");
+		return (1);
 	}
 
-if (argc == 2)
-{
-	const char *str = argv[1];
+	if (argc == 2)
+	{
+		const char*str = argv[1];
 
-	new_split(str, &head);
+		new_split(str, &head);
 
 	else
-	{
-		i = 1;
-		if( i < argc)
 		{
-		int *num_ptr = malloc(sizeof(int));
-		i++;
-		if(num_ptr = ft_atoi(argv[i]))
-		{
-		t_list *new_node = ft_lstnew(num_ptr);
-		ft_lstadd_back(&head, new_node);
+			i = 1;
+			if (i < argc)
+			{
+				int *num_ptr = malloc(sizeof(int));
+				i++;
+				if (num_ptr = ft_atoi(argv[i]))
+				{
+					t_list *new_node = ft_lstnew(num_ptr);
+					ft_lstadd_back(&head, new_node);
+				}
+			}
 		}
-		}
+
+		// Funktion mit der ich dann die Zahlen sortiere
+
+		return (0);
 	}
-
-	//Funktion mit der ich dann die Zahlen sortiere
-
-	return (0);
-}
-
