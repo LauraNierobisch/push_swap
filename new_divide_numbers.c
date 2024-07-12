@@ -1,12 +1,23 @@
-#include <ctype.h>
-#include <stdio.h>
-#include <stdlib.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   new_divide_numbers.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/12 12:04:17 by lnierobi          #+#    #+#             */
+/*   Updated: 2024/07/12 12:04:24 by lnierobi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
 
 typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
 }					t_list;
+
 // libft
 t_list	*ft_lstnew(void *content)
 {
@@ -21,6 +32,7 @@ t_list	*ft_lstnew(void *content)
 	new_node->next = NULL;
 	return (new_node);
 }
+
 // libft
 void	ft_lstadd_front(t_list **lst, t_list *new)
 {
@@ -31,6 +43,7 @@ void	ft_lstadd_front(t_list **lst, t_list *new)
 	new->next = *lst;
 	*lst = new;
 }
+
 // libft
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
@@ -81,12 +94,11 @@ void	ft_lstremove_front(t_list **lst)
 	free(temp->content);
 	free(temp);
 }
+
 void	new_split(const char *str, t_list **head)
 {
 	int		num;
 	int		in_number;
-	int		*num_ptr;
-	t_list	*new_node;
 	int		*num_ptr;
 	t_list	*new_node;
 
@@ -138,37 +150,60 @@ void	new_split(const char *str, t_list **head)
 		}
 	}
 }
+void	printList(t_list *head)
+{
+	t_list	*temp;
+
+	temp = head;
+	while (temp != NULL)
+	{
+		printf("%d ", *((int *)temp->content));
+		temp = temp->next;
+	}
+	printf("\n");
+}
 
 int	main(int argc, char *argv[])
 {
+	int			*num_ptr;
+	t_list		*new_node;
+	const char	*str;
+	int			i;
+	t_list		*stack;
+
+	stack = NULL;
 	if (argc < 2)
 	{
-		ft_printf("Error!\n");
+		printf("Error!\n");
 		return (1);
 	}
-
 	if (argc == 2)
 	{
-		const char*str = argv[1];
-
-		new_split(str, &head);
-
-	else
-		{
-			i = 1;
-			if (i < argc)
-			{
-				int *num_ptr = malloc(sizeof(int));
-				i++;
-				if (num_ptr = ft_atoi(argv[i]))
-				{
-					t_list *new_node = ft_lstnew(num_ptr);
-					ft_lstadd_back(&head, new_node);
-				}
-			}
-		}
-
-		// Funktion mit der ich dann die Zahlen sortiere
-
-		return (0);
+		str = argv[1];
+		new_split(str, &stack);
 	}
+	else
+	{
+		i = 1;
+		while (i < argc)
+		{
+			num_ptr = (int *)malloc(sizeof(int));
+			// if (!num_ptr)
+			// 	ft_exit("malloc failed");
+			*num_ptr = atoi(argv[i]);
+			if (*num_ptr)
+			{
+				new_node = ft_lstnew(num_ptr);
+				ft_lstadd_back(&stack, new_node);
+			}
+			else
+			{
+				free(num_ptr);
+			}
+			i++;
+		}
+	}
+	printList(stack);
+	// Funktion mit der ich dann die Zahlen sortiere
+	return (0);
+}

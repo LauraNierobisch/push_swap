@@ -1,0 +1,2 @@
+measage ausdrucken
+exit machen
