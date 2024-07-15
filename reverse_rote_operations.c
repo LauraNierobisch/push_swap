@@ -17,19 +17,20 @@ void	rev_rotate_a(t_list **stack_a)
 	t_list	*second_last;
 	t_list	*last;
 
-	if (*stack_a != NULL && (*stack_a)->next != NULL)
+	if (*stack_a != NULL && (*stack_a)->next != *stack_a)
 	{
-		ft_printf("rrb \n");
+		ft_printf("rra \n");
 		second_last = NULL;
 		last = *stack_a;
 
-		while (last->next != NULL)
+		while (last->next != *stack_a)
 		{
 			second_last = last;
 			last = last ->next;
 		}
-		second_last ->next = NULL;
-		ft_lstadd_front(stack_a, last);
+		second_last ->next = *stack_a;
+		last ->next = *stack_a;
+		*stack_a = last;
 	}
 }
 
@@ -38,19 +39,19 @@ void	rev_rotate_b(t_list **stack_b)
 	t_list	*second_last;
 	t_list	*last;
 
-	if (*stack_b != NULL && (*stack_b)->next != NULL)
+	if (*stack_b != NULL && (*stack_b)->next != *stack_b)
 	{
 		ft_printf("rrb \n");
 		second_last = NULL;
 		last = *stack_b;
 
-		while (last->next != NULL)
+		while (last->next != *stack_b)
 		{
 			second_last = last;
 			last = last ->next;
 		}
-		second_last ->next = NULL;
-		ft_lstadd_front(stack_b, last);
+		second_last ->next = *stack_b;
+		*stack_b = last;
 	}
 }
 

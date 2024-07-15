@@ -15,25 +15,49 @@
 void	push_a(t_list **stack_a, t_list **stack_b)
 {
 	t_list	*top_b;
+	t_list	*last_b;
 
 	if (*stack_b != NULL)
 	{
 		ft_printf("pa\n");
 		top_b = *stack_b;
-		*stack_b = (*stack_b)->next;
-		top_b->next = NULL;
+		if(top_b ->next == top_b)
+		*stack_b = NULL;
+		else
+		{
+		last_b = top_b;
+		while (last_b ->next != top_b)
+		{
+			last_b = last_b ->next;
+		}
+		*stack_b = top_b->next;
+		last_b->next = *stack_b;
+		}
 		ft_lstadd_front(stack_a, top_b);
 	}
 }
 
 void	push_b(t_list **stack_a, t_list **stack_b)
 {
+	t_list	*top_a;
+	t_list	*last_a;
+
 	if (*stack_a != NULL)
 	{
-		ft_printf("pb\n");
-		t_list *top_a = *stack_a;
-		*stack_a = (*stack_a)->next;
-		top_a->next = NULL;
+		ft_printf("pa\n");
+		top_a = *stack_a;
+		if(top_a ->next == top_a)
+		*stack_a = NULL;
+		else
+		{
+		last_a = top_a;
+		while (last_a ->next != top_a)
+		{
+			last_a = last_a ->next;
+		}
+		*stack_a = top_a->next;
+		last_a->next = *stack_a;
+		}
 		ft_lstadd_front(stack_b, top_a);
 	}
 }

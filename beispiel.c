@@ -1,201 +1,143 @@
 #include "push_swap.h"
 
-void free_list(t_list *head)
+
+void rotate_a(t_list **stack_a)
 {
-    t_list  *temp;
-    t_list  *start = head;
+    t_list *last;
 
-    if (head == NULL)
-        return;
-
-    do {
-        temp = head;
-        head = head->next;
-        free(temp->content);
-        free(temp);
-    } while (head != start);
-}
-
-// void ft_lstremove_front(t_list **lst)
-// {
-//     t_list  *temp;
-//     t_list  *start;
-
-//     if (lst == NULL || *lst == NULL)
-//         return;
-
-//     start = *lst;
-//     if (start->next == start) { // Nur ein Element in der Liste
-//         free(start->content);
-//         free(start);
-//         *lst = NULL;
-//         return;
-//     }
-
-//     temp = start;
-//     while (temp->next != start) {
-//         temp = temp->next;
-//     }
-//     temp->next = start->next;
-//     *lst = start->next;
-//     free(start->content);
-//     free(start);
-// }
-
-void ft_lstadd_back(t_list **lst, t_list *new)
-{
-    t_list  *last;
-
-    if (lst == NULL || new == NULL)
-        return;
-
-    if (*lst == NULL) {
-        *lst = new;
-        new->next = new; // Zirkuläre Verbindung
-        return;
-    }
-
-    last = *lst;
-    while (last->next != *lst) {
-        last = last->next;
-    }
-    last->next = new;
-    new->next = *lst; // Zirkuläre Verbindung
-}
-
-void new_split(const char *str, t_list **head)
-{
-    int     num;
-    int     in_number;
-    int     *num_ptr;
-    t_list  *new_node;
-
-    num = 0;
-    in_number = 0;
-    while (*str != '\0')
+    if (*stack_a != NULL && (*stack_a)->next != *stack_a) // Check for circular condition
     {
-        if (isdigit(*str))
+        ft_printf("ra\n");
+        last = *stack_a;
+
+        while (last->next != *stack_a) // Circular condition
+            last = last->next;
+
+        *stack_a = (*stack_a)->next;
+        last->next = *stack_a;
+    }
+}
+
+void rotate_b(t_list **stack_b)
+{
+    t_list *last;
+
+    if (*stack_b != NULL && (*stack_b)->next != *stack_b) // Check for circular condition
+    {
+        ft_printf("rb\n");
+        last = *stack_b;
+
+        while (last->next != *stack_b) // Circular condition
+            last = last->next;
+
+        *stack_b = (*stack_b)->next;
+        last->next = *stack_b;
+    }
+}
+void swap_a(t_list **stack_a)
+{
+    int *temp;
+
+    if (*stack_a != NULL && (*stack_a)->next != *stack_a)
+    {
+        ft_printf("sa\n");
+        temp = (*stack_a)->content;
+        (*stack_a)->content = (*stack_a)->next->content;
+        (*stack_a)->next->content = temp;
+    }
+}
+
+void swap_b(t_list **stack_b)
+{
+    int *temp;
+
+    if (*stack_b != NULL && (*stack_b)->next != *stack_b)
+    {
+        ft_printf("sb\n");
+        temp = (*stack_b)->content;
+        (*stack_b)->content = (*stack_b)->next->content;
+        (*stack_b)->next->content = temp;
+    }
+}
+
+
+void rr(t_list **stack_a, t_list **stack_b)
+{
+    ft_printf("rr\n");
+    rotate_a(stack_a);
+    rotate_b(stack_b);
+}
+int get_max_bits(t_list *stack)
+{
+    int max_num = 0;
+    int bits = 0;
+    t_list *current = stack;
+
+    if (stack == NULL)
+        return 0;
+
+    current = stack;
+    while (1)
+    {
+        int num = *((int *)current->content);
+        if (num > max_num)
+            max_num = num;
+        current = current->next;
+        if (current == stack)
+            break;
+    }
+
+    while ((max_num >> bits) != 0)
+        bits++;
+
+    return bits;
+}
+
+void radix_sort(t_list **stack_a, t_list **stack_b)
+{
+    int i = 0, j, num, max_bits;
+    t_list *current;
+    int len;
+
+    max_bits = get_max_bits(*stack_a);
+    while (i < max_bits)
+    {
+        j = 0;
+
+        // Bestimmen der Länge der Liste
+        current = *stack_a;
+        len = 0;
+        if (current != NULL)
         {
-            num = num * 10 + (*str - '0');
-            in_number = 1;
-        }
-        else if (in_number)
-        {
-            num_ptr = malloc(sizeof(int));
-            if (num_ptr != NULL)
+            while (1)
             {
-                *num_ptr = num;
-                new_node = ft_lstnew(num_ptr);
-                if (new_node != NULL)
-                {
-                    ft_lstadd_back(head, new_node);
-                }
-                else
-                {
-                    free(num_ptr);
-                }
+                len++;
+                current = current->next;
+                if (current == *stack_a)
+                    break;
             }
-            num = 0;
-            in_number = 0;
         }
-        str++;
-    }
-    if (in_number)
-    {
-        num_ptr = malloc(sizeof(int));
-        if (num_ptr != NULL)
+
+        while (j < len)
         {
-            *num_ptr = num;
-            new_node = ft_lstnew(num_ptr);
-            if (new_node != NULL)
+            num = *((int *)(*stack_a)->content);
+            if (((num >> i) & 1) == 1)
             {
-                ft_lstadd_back(head, new_node);
+                rotate_a(stack_a); // Element bleibt in stack_a
             }
             else
             {
-                free(num_ptr);
+                push_b(stack_a, stack_b); // Element wird nach stack_b verschoben
             }
+            j++;
         }
-    }
-}
 
-void printList(t_list *head)
-{
-    t_list  *temp;
-    t_list  *start = head;
-
-    if (head == NULL)
-        return;
-
-    temp = head;
-    do {
-        printf("%d ", *((int *)temp->content));
-        temp = temp->next;
-    } while (temp != start);
-    printf("\n");
-}
-
-int main(int argc, char *argv[])
-{
-    int         *num_ptr;
-    t_list      *new_node;
-    const char  *str;
-    int         i;
-    t_list      *stack_a;
-    t_list      *stack_b;
-
-    stack_a = NULL;
-    stack_b = NULL;
-    if (argc < 2)
-    {
-        printf("Error!\n");
-        return (1);
-    }
-    if (argc == 2)
-    {
-        str = argv[1];
-        new_split(str, &stack_a);
-    }
-    else
-    {
-        i = 1;
-        while (i < argc)
+        while (*stack_b != NULL)
         {
-            num_ptr = (int *)malloc(sizeof(int));
-            *num_ptr = atoi(argv[i]);
-            if (*num_ptr)
-            {
-                new_node = ft_lstnew(num_ptr);
-                ft_lstadd_back(&stack_a, new_node);
-            }
-            else
-            {
-                free(num_ptr);
-            }
-            i++;
+            push_a(stack_a, stack_b); // Alle Elemente aus stack_b zurück nach stack_a
         }
+
+        i++;
     }
-    printf("Stack A: ");
-    printList(stack_a);
-    // Stack B initial leer, weitere Operationen hier
-    printf("Stack B: ");
-    printList(stack_b);
-
-    // Beispieloperation: Verschieben von Elementen von stack_a nach stack_b
-    while (stack_a != NULL) {
-        new_node = stack_a;
-        ft_lstremove_front(&stack_a);
-        ft_lstadd_back(&stack_b, new_node);
-    }
-
-    printf("Nach Verschieben von stack_a nach stack_b:\n");
-    printf("Stack A: ");
-    printList(stack_a);
-    printf("Stack B: ");
-    printList(stack_b);
-
-    free_list(stack_a);
-    free_list(stack_b);
-
-    return (0);
 }
+

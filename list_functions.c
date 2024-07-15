@@ -44,13 +44,15 @@ void	ft_lstremove_front(t_list **lst)
 void	printlist(t_list *head)
 {
 	t_list	*temp;
-	t_list	*start;
 
-	start = head;
-	while (temp != NULL)
+
+	temp = head;
+	while (1)
 	{
 		printf("%d ", *((int *)temp->content));
 		temp = temp->next;
+		if(temp == head)
+		break;
 	}
 	printf("\n");
 }
@@ -58,12 +60,20 @@ void	printlist(t_list *head)
 void	free_list(t_list *head)
 {
 	t_list	*temp;
+	t_list	*start;
 
-	while (head != NULL)
+	if (head == NULL)
+	return;
+
+start = head;
+	while (1)
 	{
 		temp = head;
 		head = head->next;
 		free(temp->content);
 		free(temp);
+
+		if(head == start)
+		break;
 	}
 }

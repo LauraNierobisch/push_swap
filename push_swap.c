@@ -58,7 +58,7 @@ void	new_split(const char *str, t_list **head)
 			new_node = ft_lstnew(num_ptr);
 			if (new_node != NULL)
 			{
-				ft_lstadd_back(head, new_node);
+				ft_lstadd_back_circel(head, new_node);
 			}
 			else
 			{
@@ -75,9 +75,12 @@ int	main(int argc, char *argv[])
 	t_list		*new_node;
 	const char	*str;
 	int			i;
-	t_list		*stack;
+	t_list		*stack_a;
+	t_list		*stack_b;
 
-	stack = NULL;
+	stack_a = NULL;
+	stack_b = NULL;
+
 	if (argc < 2)
 	{
 		printf("Error!\n");
@@ -86,7 +89,7 @@ int	main(int argc, char *argv[])
 	if (argc == 2)
 	{
 		str = argv[1];
-		new_split(str, &stack);
+		new_split(str, &stack_a);
 	}
 	else
 	{
@@ -109,7 +112,10 @@ int	main(int argc, char *argv[])
 			i++;
 		}
 	}
-	printList(stack);
+	ft_printf("Stack A");
+	printlist(stack_a);
+	ft_printf("Stack B");
+	printlist(stack_b);
 	// Funktion mit der ich dann die Zahlen sortiere
 	return (0);
 }
