@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:03:25 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/12 11:58:45 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/07/15 11:35:25 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}					t_list;
+void	ft_lstremove_front(t_list **lst);
+void	printList(t_list *head);
+void	free_list(t_list *head);
 
 #endif

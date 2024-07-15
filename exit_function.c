@@ -1,2 +1,2 @@
-measage ausdrucken
-exit machen
+// measage ausdrucken
+// exit machen

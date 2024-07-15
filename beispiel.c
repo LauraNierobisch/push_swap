@@ -1,143 +1,201 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h> // Für bool-Datentyp
+#include "push_swap.h"
 
-// Definition der Linked List (Stack)
-typedef struct s_list {
-    void *content;
-    struct s_list *next;
-} t_list;
+void free_list(t_list *head)
+{
+    t_list  *temp;
+    t_list  *start = head;
 
-// Funktion zum Erstellen eines neuen Knotens
-t_list *ft_lstnew(void *content) {
-    t_list *new_node = malloc(sizeof(t_list));
-    if (!new_node) {
-        return NULL;
-    }
-    new_node->content = content;
-    new_node->next = NULL;
-    return new_node;
+    if (head == NULL)
+        return;
+
+    do {
+        temp = head;
+        head = head->next;
+        free(temp->content);
+        free(temp);
+    } while (head != start);
 }
 
-// Funktion zum Hinzufügen eines neuen Knotens am Anfang der Liste
-void ft_lstadd_front(t_list **lst, t_list *new) {
-    if (lst == NULL) {
-        return;
-    }
-    new->next = *lst;
-    *lst = new;
-}
+// void ft_lstremove_front(t_list **lst)
+// {
+//     t_list  *temp;
+//     t_list  *start;
 
-// Funktion zum Hinzufügen eines neuen Knotens am Ende der Liste
-void ft_lstadd_back(t_list **lst, t_list *new) {
-    if (lst == NULL) {
+//     if (lst == NULL || *lst == NULL)
+//         return;
+
+//     start = *lst;
+//     if (start->next == start) { // Nur ein Element in der Liste
+//         free(start->content);
+//         free(start);
+//         *lst = NULL;
+//         return;
+//     }
+
+//     temp = start;
+//     while (temp->next != start) {
+//         temp = temp->next;
+//     }
+//     temp->next = start->next;
+//     *lst = start->next;
+//     free(start->content);
+//     free(start);
+// }
+
+void ft_lstadd_back(t_list **lst, t_list *new)
+{
+    t_list  *last;
+
+    if (lst == NULL || new == NULL)
         return;
-    }
+
     if (*lst == NULL) {
         *lst = new;
+        new->next = new; // Zirkuläre Verbindung
         return;
     }
-    t_list *last = *lst;
-    while (last->next != NULL) {
+
+    last = *lst;
+    while (last->next != *lst) {
         last = last->next;
     }
     last->next = new;
+    new->next = *lst; // Zirkuläre Verbindung
 }
 
-// Funktion zum Entfernen des ersten Knotens der Liste
-void ft_lstremove_front(t_list **lst) {
-    if (lst == NULL || *lst == NULL) {
-        return;
+void new_split(const char *str, t_list **head)
+{
+    int     num;
+    int     in_number;
+    int     *num_ptr;
+    t_list  *new_node;
+
+    num = 0;
+    in_number = 0;
+    while (*str != '\0')
+    {
+        if (isdigit(*str))
+        {
+            num = num * 10 + (*str - '0');
+            in_number = 1;
+        }
+        else if (in_number)
+        {
+            num_ptr = malloc(sizeof(int));
+            if (num_ptr != NULL)
+            {
+                *num_ptr = num;
+                new_node = ft_lstnew(num_ptr);
+                if (new_node != NULL)
+                {
+                    ft_lstadd_back(head, new_node);
+                }
+                else
+                {
+                    free(num_ptr);
+                }
+            }
+            num = 0;
+            in_number = 0;
+        }
+        str++;
     }
-    t_list *temp = *lst;
-    *lst = (*lst)->next;
-    free(temp->content); // Freigabe des Inhalts (hier int *)
-    free(temp);          // Freigabe des Knotens
+    if (in_number)
+    {
+        num_ptr = malloc(sizeof(int));
+        if (num_ptr != NULL)
+        {
+            *num_ptr = num;
+            new_node = ft_lstnew(num_ptr);
+            if (new_node != NULL)
+            {
+                ft_lstadd_back(head, new_node);
+            }
+            else
+            {
+                free(num_ptr);
+            }
+        }
+    }
 }
 
-// Funktion zum Ausdrucken der Liste (für Debugging-Zwecke)
-void printList(t_list *head) {
-    t_list *temp = head;
-    while (temp != NULL) {
+void printList(t_list *head)
+{
+    t_list  *temp;
+    t_list  *start = head;
+
+    if (head == NULL)
+        return;
+
+    temp = head;
+    do {
         printf("%d ", *((int *)temp->content));
         temp = temp->next;
-    }
+    } while (temp != start);
     printf("\n");
 }
 
-// Funktion zum Freigeben der gesamten Liste
-void free_list(t_list *head) {
-    t_list *temp;
-    while (head != NULL) {
-        temp = head;
-        head = head->next;
-        free(temp->content);  // Freigabe des Inhalts (hier int *)
-        free(temp);           // Freigabe des Knotens
+int main(int argc, char *argv[])
+{
+    int         *num_ptr;
+    t_list      *new_node;
+    const char  *str;
+    int         i;
+    t_list      *stack_a;
+    t_list      *stack_b;
+
+    stack_a = NULL;
+    stack_b = NULL;
+    if (argc < 2)
+    {
+        printf("Error!\n");
+        return (1);
     }
-}
-
-// Reverse Rotate Operationen
-void rra(t_list **stack_a) {
-    if (*stack_a != NULL && (*stack_a)->next != NULL) {
-        t_list *second_last = NULL;
-        t_list *last = *stack_a;
-
-        while (last->next != NULL) {
-            second_last = last;
-            last = last->next;
+    if (argc == 2)
+    {
+        str = argv[1];
+        new_split(str, &stack_a);
+    }
+    else
+    {
+        i = 1;
+        while (i < argc)
+        {
+            num_ptr = (int *)malloc(sizeof(int));
+            *num_ptr = atoi(argv[i]);
+            if (*num_ptr)
+            {
+                new_node = ft_lstnew(num_ptr);
+                ft_lstadd_back(&stack_a, new_node);
+            }
+            else
+            {
+                free(num_ptr);
+            }
+            i++;
         }
-
-        second_last->next = NULL;
-        ft_lstadd_front(stack_a, last);
     }
-}
-
-void rrb(t_list **stack_b) {
-    if (*stack_b != NULL && (*stack_b)->next != NULL) {
-        t_list *second_last = NULL;
-        t_list *last = *stack_b;
-
-        while (last->next != NULL) {
-            second_last = last;
-            last = last->next;
-        }
-
-        second_last->next = NULL;
-        ft_lstadd_front(stack_b, last);
-    }
-}
-
-void rrr(t_list **stack_a, t_list **stack_b) {
-    rra(stack_a);
-    rrb(stack_b);
-}
-
-int main() {
-    // Beispiel zur Verwendung der Operationen
-    t_list *stack_a = NULL; // Stack A
-    t_list *stack_b = NULL; // Stack B
-
-    // Beispielzahlen hinzufügen
-    int num1 = 3, num2 = 1, num3 = 5, num4 = 2;
-    ft_lstadd_front(&stack_a, ft_lstnew(&num1));
-    ft_lstadd_front(&stack_a, ft_lstnew(&num2));
-    ft_lstadd_front(&stack_a, ft_lstnew(&num3));
-    ft_lstadd_front(&stack_a, ft_lstnew(&num4));
-
-    printf("Unsortierter Stack A: ");
+    printf("Stack A: ");
     printList(stack_a);
-
-    // Beispiel: Sortieren mit ss (sa und sb gleichzeitig)
-    printf("\nSortiere mit ss (sa und sb):\n");
-    ss(&stack_a, &stack_b);
-    printf("Sortierter Stack A: ");
-    printList(stack_a);
-    printf("Sortierter Stack B: ");
+    // Stack B initial leer, weitere Operationen hier
+    printf("Stack B: ");
     printList(stack_b);
 
-    // Freigabe der Listen
+    // Beispieloperation: Verschieben von Elementen von stack_a nach stack_b
+    while (stack_a != NULL) {
+        new_node = stack_a;
+        ft_lstremove_front(&stack_a);
+        ft_lstadd_back(&stack_b, new_node);
+    }
+
+    printf("Nach Verschieben von stack_a nach stack_b:\n");
+    printf("Stack A: ");
+    printList(stack_a);
+    printf("Stack B: ");
+    printList(stack_b);
+
     free_list(stack_a);
     free_list(stack_b);
 
-    return 0;
+    return (0);
 }

@@ -1,99 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_divide_numbers.c                               :+:      :+:    :+:   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 12:04:17 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/12 12:04:24 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/07/15 16:20:10 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}					t_list;
-
-// libft
-t_list	*ft_lstnew(void *content)
-{
-	t_list	*new_node;
-
-	new_node = malloc(sizeof(t_list));
-	if (!new_node)
-	{
-		return (NULL);
-	}
-	new_node->content = content;
-	new_node->next = NULL;
-	return (new_node);
-}
-
-// libft
-void	ft_lstadd_front(t_list **lst, t_list *new)
-{
-	if (!lst || !new)
-	{
-		return ;
-	}
-	new->next = *lst;
-	*lst = new;
-}
-
-// libft
-void	ft_lstadd_back(t_list **lst, t_list *new)
-{
-	t_list	*last;
-
-	if (lst == NULL)
-	{
-		return ;
-	}
-	if (*lst == NULL)
-	{
-		*lst = new;
-		return ;
-	}
-	last = *lst;
-	while (last->next != NULL)
-	{
-		last = last->next;
-	}
-	last->next = new;
-}
-
-// new list function
-void	free_list(t_list *head)
-{
-	t_list	*temp;
-
-	while (head != NULL)
-	{
-		temp = head;
-		head = head->next;
-		free(temp->content);
-		free(temp);
-	}
-}
-
-// new list function
-void	ft_lstremove_front(t_list **lst)
-{
-	t_list	*temp;
-
-	if (lst == NULL || *lst == NULL)
-	{
-		return ;
-	}
-	temp = *lst;
-	*lst = (*lst)->next;
-	free(temp->content);
-	free(temp);
-}
 
 void	new_split(const char *str, t_list **head)
 {
@@ -150,18 +67,7 @@ void	new_split(const char *str, t_list **head)
 		}
 	}
 }
-void	printList(t_list *head)
-{
-	t_list	*temp;
 
-	temp = head;
-	while (temp != NULL)
-	{
-		printf("%d ", *((int *)temp->content));
-		temp = temp->next;
-	}
-	printf("\n");
-}
 
 int	main(int argc, char *argv[])
 {
