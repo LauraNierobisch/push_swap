@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 12:04:17 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/15 16:20:10 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/07/16 17:08:17 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	new_split(const char *str, t_list **head)
 			new_node = ft_lstnew(num_ptr);
 			if (new_node != NULL)
 			{
-				ft_lstadd_back_circel(head, new_node);
+				ft_lstadd_back_circle(head, new_node);
 			}
 			else
 			{
@@ -68,7 +68,96 @@ void	new_split(const char *str, t_list **head)
 	}
 }
 
+// void number_to_list(int num_ptr, )
+// {
+// 	//von Zeile 55 bis 65 kopiert damit ich das fuer in "" und nicht in "" benutzen kann und ich aknn das 2 mal in new split einfuegen
+// num_ptr = malloc(sizeof(int));
+// 		if (num_ptr != NULL)
+// 		{
+// 			*num_ptr = num;
+// 			new_node = ft_lstnew(num_ptr);
+// 			if (new_node != NULL)
+// 			{
+// 				ft_lstadd_back_circle(head, new_node);
+// 			}
+// 			else
+// 			{
+// 				free(num_ptr);
+// 			}
+// 		}
+// }
+int	get_max_bits(t_list *stack)
+{
+	int		max_num;
+	int		bits;
+	t_list	*current;
+	int		num;
 
+	max_num = 0;
+	bits = 0;
+	current = stack;
+	if (stack == NULL)
+		return (0);
+	current = stack;
+	while (1)
+	{
+		num = *((int *)current->content);
+		if (num > max_num)
+			max_num = num;
+		current = current->next;
+		if (current == stack)
+			break ;
+	}
+	while ((max_num >> bits) != 0)
+		bits++;
+	return (bits);
+}
+void	radix_sort(t_list **stack_a, t_list **stack_b)
+{
+	int		i;
+	int		j;
+	int		num;
+	int		max_bits;
+	t_list	*current;
+	int		len;
+
+	i = 0;
+	max_bits = get_max_bits(*stack_a);
+	while (i < max_bits)
+	{
+		j = 0;
+		current = *stack_a;
+		len = 0;
+		if (current != NULL)
+		{
+			while (1)
+			{
+				len++;
+				current = current->next;
+				if (current == *stack_a)
+					break ;
+			}
+		}
+		while (j < len)
+		{
+			num = *((int *)(*stack_a)->content);
+			if (((num >> i) & 1) == 1)
+			{
+				rotate_a(stack_a);
+			}
+			else
+			{
+				push_b(stack_a, stack_b);
+			}
+			j++;
+		}
+		while (*stack_b != NULL)
+		{
+			push_a(stack_a, stack_b);
+		}
+		i++;
+	}
+}
 int	main(int argc, char *argv[])
 {
 	int			*num_ptr;
@@ -81,11 +170,6 @@ int	main(int argc, char *argv[])
 	stack_a = NULL;
 	stack_b = NULL;
 
-	if (argc < 2)
-	{
-		printf("Error!\n");
-		return (1);
-	}
 	if (argc == 2)
 	{
 		str = argv[1];
@@ -97,13 +181,16 @@ int	main(int argc, char *argv[])
 		while (i < argc)
 		{
 			num_ptr = (int *)malloc(sizeof(int));
-			// if (!num_ptr)
-			// 	ft_exit("malloc failed");
+			if (num_ptr == NULL)
+			{
+				ft_putstr_fd("Error", 2);
+				exit(EXIT_FAILURE);
+			}
 			*num_ptr = atoi(argv[i]);
-			if (*num_ptr)
+			if (argv[i][0] != '\0' && ((*num_ptr != 0) || argv[i][1]== '\0'))
 			{
 				new_node = ft_lstnew(num_ptr);
-				ft_lstadd_back(&stack, new_node);
+				ft_lstadd_back_circle(&stack_a, new_node);
 			}
 			else
 			{
@@ -112,10 +199,19 @@ int	main(int argc, char *argv[])
 			i++;
 		}
 	}
-	ft_printf("Stack A");
+	ft_printf("Stack A ");
 	printlist(stack_a);
-	ft_printf("Stack B");
-	printlist(stack_b);
+	// ft_printf("Stack B");
+	// printlist(stack_b);
 	// Funktion mit der ich dann die Zahlen sortiere
 	return (0);
 }
+
+
+
+// main plan :
+// arg v arg c blah blah
+dann error handling
+dann 
+//
+

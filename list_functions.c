@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:30:54 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/15 16:18:45 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/07/16 16:20:19 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,15 @@ void	printlist(t_list *head)
 {
 	t_list	*temp;
 
-
 	temp = head;
 	while (1)
 	{
-		printf("%d ", *((int *)temp->content));
+		ft_printf("%d ", *((int *)temp->content));
 		temp = temp->next;
-		if(temp == head)
-		break;
+		if (temp == head)
+			break ;
 	}
-	printf("\n");
+	ft_printf("\n");
 }
 
 void	free_list(t_list *head)
@@ -63,17 +62,15 @@ void	free_list(t_list *head)
 	t_list	*start;
 
 	if (head == NULL)
-	return;
-
-start = head;
+		return ;
+	start = head;
 	while (1)
 	{
 		temp = head;
 		head = head->next;
 		free(temp->content);
 		free(temp);
-
-		if(head == start)
-		break;
+		if (head == start)
+			break ;
 	}
 }

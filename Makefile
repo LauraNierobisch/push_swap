@@ -6,11 +6,13 @@
 #    By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 10:34:37 by lnierobi          #+#    #+#              #
-#    Updated: 2024/07/10 10:45:21 by lnierobi         ###   ########.fr        #
+#    Updated: 2024/07/16 15:11:24 by lnierobi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-PUSHSWAP_SRCS	=	push_swap.c
+PUSHSWAP_SRCS	=	push_swap.c ft_lstadd_back_circle.c ft_lstadd_front_circle.c \
+					list_functions.c new_push_operations.c new_rotate_operation.c \
+					new_swap_operation.c reverse_rote_operations.c \
 
 PUSH = $(PUSHSWAP_SRCS:.c=.o)
 SERVER_OBJS = $(SERVER_SRCS:.c=.o)

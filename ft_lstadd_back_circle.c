@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_lstadd_back_circle.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 11:40:50 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/03/30 11:43:10 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/07/16 15:08:19 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
 void	ft_lstadd_back_circle(t_list **lst, t_list *new)
 {
@@ -32,5 +32,5 @@ void	ft_lstadd_back_circle(t_list **lst, t_list *new)
 		last = last->next;
 	}
 	last->next = new;
-	new->nextn = *lst;
+	new->next = *lst;
 }
