@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 12:04:17 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/16 17:08:17 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/07/17 11:46:16 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ int	main(int argc, char *argv[])
 		str = argv[1];
 		new_split(str, &stack_a);
 	}
-	else
+	if (argc > 2)
 	{
 		i = 1;
 		while (i < argc)
@@ -183,8 +183,7 @@ int	main(int argc, char *argv[])
 			num_ptr = (int *)malloc(sizeof(int));
 			if (num_ptr == NULL)
 			{
-				ft_putstr_fd("Error", 2);
-				exit(EXIT_FAILURE);
+				error_function();
 			}
 			*num_ptr = atoi(argv[i]);
 			if (argv[i][0] != '\0' && ((*num_ptr != 0) || argv[i][1]== '\0'))
@@ -209,9 +208,47 @@ int	main(int argc, char *argv[])
 
 
 
-// main plan :
-// arg v arg c blah blah
-dann error handling
-dann 
-//
+//main plan :
+//arg v arg c blah blah
+//dann von da aus weiter in den error check
+// eror ckeck : obs in der range is mit long ob der das aufnehem kann und obs int ist dupicate
+//dann muss ich noch die null am anfang hendeln zB 02 oder so
+//dann :
+//if > 2 dann in die eine funktion
+//if = 2 dann in die andere Funktion und
+
+//und von da dann in die sortierung
+
+int range_int (char **argv)
+{
+	long num;
+	int sign;
+
+	num = 0;
+	sign = 1;
+
+	if (*argv == '\0')
+	{
+		error_function();
+	}
+	if (*argv == '-')
+	{
+		sign = -1;
+		argv ++;
+	}
+	if (*argv == '+')
+
+}
+
+int dupli_int(char **argv)
+{
+	int i;
+
+}
+
+int numbers_only(char **argv)
+{
+
+}
+
 

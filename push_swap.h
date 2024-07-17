@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:03:25 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/16 15:02:43 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/07/17 10:05:15 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,5 @@ void	ss(t_list **stack_a, t_list **stack_b);
 void	new_split(const char *str, t_list **head);
 int		get_max_bits(t_list *stack);
 void	radix_sort(t_list **stack_a, t_list **stack_b);
-
+char	error_function(void);
 #endif
