@@ -12,6 +12,26 @@
 
 #include "push_swap.h"
 
+void number_to_list(int num, t_list **head)
+ {
+ 		int	*num_ptr;
+		num_ptr = malloc(sizeof(int));
+
+ 		if (num_ptr != NULL)
+ 		{
+ 			*num_ptr = num;
+ 			new_node = ft_lstnew(num_ptr);
+ 			if (new_node != NULL)
+ 			{
+ 				ft_lstadd_back_circle(head, new_node);
+ 			}
+ 			else
+ 			{
+ 				free(num_ptr);
+ 			}
+ 		}
+ }
+
 void	new_split(const char *str, t_list **head)
 {
 	int		num;
@@ -23,27 +43,14 @@ void	new_split(const char *str, t_list **head)
 	in_number = 0;
 	while (*str != '\0')
 	{
-		if (isdigit(*str))
+		if (ft_isdigit(*str))
 		{
 			num = num * 10 + (*str - '0');
 			in_number = 1;
 		}
 		else if (in_number)
 		{
-			num_ptr = malloc(sizeof(int));
-			if (num_ptr != NULL)
-			{
-				*num_ptr = num;
-				new_node = ft_lstnew(num_ptr);
-				if (new_node != NULL)
-				{
-					ft_lstadd_back(head, new_node);
-				}
-				else
-				{
-					free(num_ptr);
-				}
-			}
+			number_to_list(num, head);
 			num = 0;
 			in_number = 0;
 		}
@@ -51,41 +58,11 @@ void	new_split(const char *str, t_list **head)
 	}
 	if (in_number)
 	{
-		num_ptr = malloc(sizeof(int));
-		if (num_ptr != NULL)
-		{
-			*num_ptr = num;
-			new_node = ft_lstnew(num_ptr);
-			if (new_node != NULL)
-			{
-				ft_lstadd_back_circle(head, new_node);
-			}
-			else
-			{
-				free(num_ptr);
-			}
-		}
+		number_to_list(num, head);
 	}
 }
 
-// void number_to_list(int num_ptr, )
-// {
-// 	//von Zeile 55 bis 65 kopiert damit ich das fuer in "" und nicht in "" benutzen kann und ich aknn das 2 mal in new split einfuegen
-// num_ptr = malloc(sizeof(int));
-// 		if (num_ptr != NULL)
-// 		{
-// 			*num_ptr = num;
-// 			new_node = ft_lstnew(num_ptr);
-// 			if (new_node != NULL)
-// 			{
-// 				ft_lstadd_back_circle(head, new_node);
-// 			}
-// 			else
-// 			{
-// 				free(num_ptr);
-// 			}
-// 		}
-// }
+
 int	get_max_bits(t_list *stack)
 {
 	int		max_num;
@@ -219,36 +196,7 @@ int	main(int argc, char *argv[])
 
 //und von da dann in die sortierung
 
-int range_int (char **argv)
-{
-	long num;
-	int sign;
 
-	num = 0;
-	sign = 1;
 
-	if (*argv == '\0')
-	{
-		error_function();
-	}
-	if (*argv == '-')
-	{
-		sign = -1;
-		argv ++;
-	}
-	if (*argv == '+')
-
-}
-
-int dupli_int(char **argv)
-{
-	int i;
-
-}
-
-int numbers_only(char **argv)
-{
-
-}
 
 
