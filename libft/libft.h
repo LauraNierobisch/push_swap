@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:40:50 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/03/30 12:15:03 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/07/18 16:03:03 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,7 @@ void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
+int					ft_strcmp(char *s1, char *s2);
+long int			ft_atol(const char *str);
 
 #endif

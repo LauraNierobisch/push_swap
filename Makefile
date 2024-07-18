@@ -6,7 +6,7 @@
 #    By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 10:34:37 by lnierobi          #+#    #+#              #
-#    Updated: 2024/07/17 11:39:01 by lnierobi         ###   ########.fr        #
+#    Updated: 2024/07/18 12:01:44 by lnierobi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,13 +28,13 @@ LIBS = libft/libft.a\
 PUSHSWAP = push_swap
 
 
-all: $(PUSHSWAP) $(SERVER)
+all: $(PUSHSWAP)
 
 %.o : %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@ -g
 
 $(PUSHSWAP): $(PUSH) $(LIBS)
-		$(CC) $(CFLAGS) $(PUSH) $(LIBS) -o $(PUSHSWAP)
+		$(CC) $(CFLAGS) $(PUSH) $(LIBS) -o $(PUSHSWAP) -g
 
 $(LIBS):
 		make -C libft

@@ -6,39 +6,40 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 12:04:17 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/17 11:46:16 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/07/18 17:20:55 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void number_to_list(int num, t_list **head)
- {
- 		int	*num_ptr;
-		num_ptr = malloc(sizeof(int));
+void	number_to_list(int num, t_list **head)
+{
+	t_list	*new_node;
+	int		*num_ptr;
 
- 		if (num_ptr != NULL)
- 		{
- 			*num_ptr = num;
- 			new_node = ft_lstnew(num_ptr);
- 			if (new_node != NULL)
- 			{
- 				ft_lstadd_back_circle(head, new_node);
- 			}
- 			else
- 			{
- 				free(num_ptr);
- 			}
- 		}
- }
+	num_ptr = malloc(sizeof(int));
+	if (num_ptr != NULL)
+	{
+		*num_ptr = num;
+		new_node = ft_lstnew(num_ptr);
+		if (new_node != NULL)
+		{
+			ft_lstadd_back(head, new_node);
+		}
+		else
+		{
+			free(num_ptr);
+		}
+	}
+}
 
 void	new_split(const char *str, t_list **head)
 {
-	int		num;
-	int		in_number;
-	int		*num_ptr;
-	t_list	*new_node;
+	int	num;
+	int	in_number;
 
+	// int		*num_ptr;
+	// t_list	*new_node;
 	num = 0;
 	in_number = 0;
 	while (*str != '\0')
@@ -57,11 +58,8 @@ void	new_split(const char *str, t_list **head)
 		str++;
 	}
 	if (in_number)
-	{
 		number_to_list(num, head);
-	}
 }
-
 
 int	get_max_bits(t_list *stack)
 {
@@ -137,45 +135,48 @@ void	radix_sort(t_list **stack_a, t_list **stack_b)
 }
 int	main(int argc, char *argv[])
 {
-	int			*num_ptr;
-	t_list		*new_node;
-	const char	*str;
-	int			i;
-	t_list		*stack_a;
-	t_list		*stack_b;
+	const char		*str;
+	int				i;
+	t_list			*stack_a;
+	t_list			*stack_b;
+	t_si_content	*thecontent;
+	t_list			*new_node;
 
+	thecontent = NULL;
 	stack_a = NULL;
 	stack_b = NULL;
-
 	if (argc == 2)
 	{
 		str = argv[1];
 		new_split(str, &stack_a);
 	}
+	ft_printf("Hi\n");
 	if (argc > 2)
 	{
 		i = 1;
 		while (i < argc)
 		{
-			num_ptr = (int *)malloc(sizeof(int));
-			if (num_ptr == NULL)
+			thecontent = (t_si_content *)malloc(sizeof(t_si_content));
+			if (thecontent == NULL)
 			{
-				error_function();
+				// Fehlerbehandlung falls malloc fehlschlägt
+				ft_printf("Speicher konnte nicht zugewiesen werden\n");
+				return (1);
 			}
-			*num_ptr = atoi(argv[i]);
-			if (argv[i][0] != '\0' && ((*num_ptr != 0) || argv[i][1]== '\0'))
+			thecontent->number = ft_atoi(argv[i]);
+			thecontent->position = i - 1;
+			thecontent->index = 0;
+			new_node = ft_lstnew((void *)thecontent);
+			if (new_node == NULL)
 			{
-				new_node = ft_lstnew(num_ptr);
-				ft_lstadd_back_circle(&stack_a, new_node);
+				new_node->next = stack_a;
+				free(thecontent);
 			}
-			else
-			{
-				free(num_ptr);
-			}
+			ft_lstadd_back(&stack_a, new_node);
 			i++;
 		}
 	}
-	ft_printf("Stack A ");
+	ft_printf("Stack A\n");
 	printlist(stack_a);
 	// ft_printf("Stack B");
 	// printlist(stack_b);
@@ -183,20 +184,13 @@ int	main(int argc, char *argv[])
 	return (0);
 }
 
-
-
-//main plan :
-//arg v arg c blah blah
-//dann von da aus weiter in den error check
+// main plan :
+// arg v arg c blah blah
+// dann von da aus weiter in den error check
 // eror ckeck : obs in der range is mit long ob der das aufnehem kann und obs int ist dupicate
-//dann muss ich noch die null am anfang hendeln zB 02 oder so
-//dann :
-//if > 2 dann in die eine funktion
-//if = 2 dann in die andere Funktion und
+// dann muss ich noch die null am anfang hendeln zB 02 oder so
+// dann :
+// if > 2 dann in die eine funktion
+// if = 2 dann in die andere Funktion und
 
-//und von da dann in die sortierung
-
-
-
-
-
+// und von da dann in die sortierung

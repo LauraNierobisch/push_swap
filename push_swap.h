@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:03:25 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/17 10:05:15 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/07/18 16:10:47 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,14 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
+// structure hinbauen
+
+typedef struct s_si_content
+{
+	int	number;
+	int	index;
+	int	position;
+}		t_si_content;
 
 void	ft_lstremove_front(t_list **lst);
 void	printlist(t_list *head);
