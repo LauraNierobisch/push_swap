@@ -6,7 +6,7 @@
 #    By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/12 13:59:04 by lnierobi          #+#    #+#              #
-#    Updated: 2024/07/18 11:45:00 by lnierobi         ###   ########.fr        #
+#    Updated: 2024/07/23 14:49:28 by lnierobi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ BONUS_OBJS		= $(BONUS:.c=.o)
 
 CC				= cc
 RM				= rm -f
-CFLAGS			= -Wall -Wextra -Werror
+CFLAGS			= -Wall -Wextra -Werror -g
 
 %.o : %.c
 	$(CC) $(CFLAGS) -c $< -o $@

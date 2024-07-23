@@ -6,17 +6,17 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:43:42 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/05 11:53:47 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/07/22 12:13:30 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-long int	ft_atol(const char *str)
+long	ft_atol(const char *str)
 {
-	long int	res;
-	int			sign;
-	int			counter;
+	long	res;
+	long	sign;
+	int		counter;
 
 	res = 0;
 	sign = 1;

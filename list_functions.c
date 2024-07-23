@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:30:54 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/18 19:22:50 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/07/22 11:26:21 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,40 +40,28 @@ void	ft_lstremove_front(t_list **lst)
 	free(start->content);
 	free(start);
 }
-//new
 
-// void	printlist(t_list *head)
-// {
-// 	t_list			*temp;
-// 	t_si_content	*thecontent;
-
-// 	if (!head)
-// 		return ;
-// 	temp = head;
-// 	while (temp->next != NULL)
-// 	{
-// 		thecontent = (t_si_content *)temp->content;
-// 		ft_printf("[number: %s, position: %s, index: %s]\n", thecontent->number, thecontent->position, thecontent->index);
-// 		temp = temp->next;
-// 	}
-// 	ft_printf("\n");
-// }
 
 //old
 void	printlist(t_list *head)
 {
 	t_list	*temp;
-
-	temp = head;
-	while (1)
+	if(head == NULL)
 	{
-		ft_printf("%d ", *((int *)temp->content));
+		return ;
+	}
+	temp = head;
+	while (temp != NULL)
+	{
+		t_si_content *content = (t_si_content *)temp->content;
+		ft_printf("Number: %d, Position: %d, Index: %d\n", content->number, content->position, content->index);
 		temp = temp->next;
 		if (temp == head)
 			break ;
 	}
 	ft_printf("\n");
 }
+
 
 
 void	free_list(t_list *head)

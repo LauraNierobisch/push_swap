@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 09:59:46 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/18 11:43:50 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/07/23 17:04:31 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,16 @@
 
 char	error_function(void)
 {
-	ft_putstr_fd("Error", 2);
+	ft_putstr_fd("Error\n", 2);
 	exit(EXIT_FAILURE);
 }
 
 int	is_number(const char *str)
 {
+	if (*str == '-')
+	{
+		str++;
+	}
 	while (*str != '\0')
 	{
 		if (!isdigit(*str))
@@ -52,7 +56,7 @@ int	dupli_int(int argc, char **argv)
 	int	i;
 	int	j;
 
-	i = 1;
+	i = 0;
 	while (i < argc)
 	{
 		j = i + 1;
@@ -75,11 +79,11 @@ int	in_long_range(int argc, char *argv[])
 	int		i;
 
 	i = 1;
-	num = ft_atol(argv[i]);
-
 	while (i < argc)
 	{
-		if (num < LONG_MIN || num > LONG_MAX)
+		num = ft_atol(argv[i]);
+		// printf("num %ld\n", num);
+		if (num < INT_MIN || num > INT_MAX)
 		{
 			return (0);
 		}
@@ -92,18 +96,40 @@ int	error_checker_complete(int argc, char *argv[])
 {
 	if (!numbers_only(argc, argv))
 	{
-		ft_putstr_fd("Error: All arguments must be numbers.\n", 2);
+		ft_putstr_fd("Error\n", 2);
 		exit(EXIT_FAILURE);
 	}
 	if (!in_long_range(argc, argv))
 	{
-		ft_putstr_fd("Error: Arguments must be in range of a long int.\n", 2);
+		ft_putstr_fd("Error\n", 2);
 		exit(EXIT_FAILURE);
 	}
 	if (!dupli_int(argc, argv))
 	{
-		ft_putstr_fd("Error: no duplicated numbers! .\n", 2);
+		ft_putstr_fd("Error\n", 2);
 		exit(EXIT_FAILURE);
 	}
 	return (0);
 }
+void	error_for_quotes(int argc, char *argv)
+{
+	char **split;
+	int i;
+	i = 0;
+
+	split = ft_split(argv, ' ');
+	// if (!split)
+	// 	exit(1);
+	error_checker_complete(argc, split);
+	if (split)
+	{
+		while (split[i] != NULL)
+		{
+			free(split[i]);
+			i++;
+		}
+		free(split);
+	}
+}
+// error stuff dann  splitten dann schauen ob die sortiert sind und dann sortieren
+// zuerst checken ob die zahlen schon sortiert
