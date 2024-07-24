@@ -111,16 +111,22 @@ int	error_checker_complete(int argc, char *argv[])
 	}
 	return (0);
 }
-void	error_for_quotes(int argc, char *argv)
+void	error_for_quotes(char *argv)
 {
 	char **split;
 	int i;
+	int split_count;
+
 	i = 0;
 
 	split = ft_split(argv, ' ');
 	// if (!split)
 	// 	exit(1);
-	error_checker_complete(argc, split);
+	while (split[split_count] != NULL)
+	{
+		split_count++;
+	}
+	error_checker_complete(split_count, split);
 	if (split)
 	{
 		while (split[i] != NULL)

@@ -122,54 +122,53 @@ int	get_max_bits(t_list *stack)
 	return (bits);
 }
 
-// void	radix_sort(t_list **stack_a, t_list **stack_b)
-// {
+void bubble_sort(t_list **stack_a, t_list **stack_b) {
+int swapped;
+	t_list *current;
+	t_list *next;
+	t_si_content *current_content;
+	t_si_content *next_content;
 
-// 	int		i;
-// 	int		j;
-// 	int		num;
-// 	int		max_bits;
-// 	t_list	*current;
-// 	int		len;
+	if (*stack_a == NULL)
+	{
+		return;
+	}
 
-// 	i = 0;
-// 	max_bits = get_max_bits(*stack_a);
-// 	while (i < max_bits)
-// 	{
+	if (is_sorted(*stack_a))
+		return (0);
+	swapped = 1;
+	while (swapped)
+	{
+		swapped = 0;
+		current = *stack_a;
 
-// 		j = 0;
-// 		current = *stack_a;
-// 		len = 0;
-// 		if (current != NULL)
-// 		{
-// 			while (1)
-// 			{
-// 				len++;
-// 				current = current->next;
-// 				if (current == *stack_a)
-// 					break ;
-// 			}
-// 		}
-// 		while (j < len)
-// 		{
-// 			num = *((int *)(*stack_a)->content);
-// 			if (((num >> i) & 1) == 1)
-// 			{
-// 				rotate_a(stack_a);
-// 			}
-// 			else
-// 			{
-// 				push_b(stack_a, stack_b);
-// 			}
-// 			j++;
-// 		}
-// 		while (*stack_b != NULL)
-// 		{
-// 			push_a(stack_a, stack_b);
-// 		}
-// 		i++;
-// 	}
-// }
+		while (current->next != *stack_a)
+		{
+			next = current->next;
+			current_content = (t_si_content *)current->content;
+			next_content = (t_si_content *)next->content;
+
+				if (current_content->number > next_content->number)
+				{
+				push_b(stack_a, stack_b);
+				push_b(stack_a, stack_b);
+				swap_b(stack_b);
+				push_a(stack_a, stack_b);
+				push_a(stack_a, stack_b);
+				swapped = 1;
+				}
+			 else
+				{
+				rotate_a(stack_a);
+				}
+				current = current->next;
+				}
+			while (*stack_b != NULL) {
+			push_a(stack_a, stack_b);
+			}
+			current = *stack_a;
+	}
+}
 
 int	is_sorted(t_list *list)
 {
@@ -294,7 +293,7 @@ int	main(int argc, char *argv[])
 		}
 	}
 	// ft_printf("Stack A\n");
-	radix_sort(&stack_a, &stack_b);
+	bubble_sort(&stack_a, &stack_b);
 	// printlist(stack_a);
 	// ft_printf("Stack B");
 	// printlist(stack_b);
@@ -302,7 +301,25 @@ int	main(int argc, char *argv[])
 	return (0);
 }
 
-// main plan :
+void remove_leading_zeros(char *str)
+{
+	int i = 0;
+	int j = 0;
+if (str == NULL || *str == '\0')
+{
+return;
+}
+	while (str[i] == '0' && str[i + 1] != '\0') {
+		i++;
+	}
+
+		while (str[i] != '\0') {
+			str[j++] = str[i++];
+		}
+		str[j] = '\0';
+}
+	// main plan :
 // wenn ich nur 1 zahla ls argument hab segfault -> muss ich fixen!
-// der algorithmus ist scheisse und ich muss was besseres finden weil ich unter 700 schritte pro 100 zahlen kommen muss. 
+//wenn es nur 2 zahlen sind muss ich erst ueberprüfen ob die sortiert sind und wenn nicht dann nur swapen.
+// der algorithmus ist scheisse und ich muss was besseres finden weil ich unter 700 schritte pro 100 zahlen kommen muss.
 

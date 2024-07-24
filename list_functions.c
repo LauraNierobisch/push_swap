@@ -82,3 +82,35 @@ void	free_list(t_list *head)
 			break ;
 	}
 }
+
+void insert_node(t_list **head, t_list *new_node) {
+    if (*head == NULL) {
+        *head = new_node;
+        new_node->next = new_node;
+    } else {
+        t_list *last = *head;
+        while (last->next != *head) {
+            last = last->next;
+        }
+        last->next = new_node;
+        new_node->next = *head;
+    }
+}
+t_list *create_node(int value) {
+    t_si_content *content = (t_si_content *)malloc(sizeof(t_si_content));
+    if (content == NULL) {
+        return NULL;
+    }
+    content->number = value;
+    content->position = 0;
+    content->index = 0;
+
+    t_list *node = (t_list *)malloc(sizeof(t_list));
+    if (node == NULL) {
+        free(content);
+        return NULL;
+    }
+    node->content = (void *)content;
+    node->next = NULL;
+    return node;
+}
