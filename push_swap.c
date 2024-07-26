@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 12:04:17 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/23 17:58:13 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/07/26 16:59:12 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,37 +61,6 @@ void	new_split(const char *str, t_list **head)
 		number_to_list(num, head);
 }
 
-// int	get_max_bits(t_list *stack)
-// {
-// 	int		max_num;
-// 	int		bits;
-// 	t_list	*current;
-// 	int		num;
-
-// 	max_num = 0;
-// 	bits = 0;
-// 	current = stack;
-// 	if (stack == NULL)
-// 		return (0);
-// 		current = stack;
-// 	while (1)
-// 	{
-// 		num = *((int *)current->content);
-// 		if (num > max_num)
-// 			max_num = num;
-// 		current = current->next;
-// 			if(current == stack)
-// 			{
-// 			break ;
-// 			}
-// 		//  printf("hier ist der fehler\n");
-// 		if (current == stack)
-// 			break ;
-// 	}
-// 	while ((max_num >> bits) != 0)
-// 		bits++;
-// 	return (bits);
-// }
 int	get_max_bits(t_list *stack)
 {
 	int		max_num;
@@ -103,72 +72,173 @@ int	get_max_bits(t_list *stack)
 	bits = 0;
 	current = stack;
 	if (stack == NULL)
-	{
 		return (0);
-	}
-	do
+	current = stack;
+	while (1)
 	{
 		num = *((int *)current->content);
 		if (num > max_num)
-		{
 			max_num = num;
-		}
 		current = current->next;
-	} while (current != stack && current != NULL);
-	while ((max_num >> bits) != 0)
-	{
-		bits++;
+		if (current == stack)
+		{
+			break ;
+		}
+		//  printf("hier ist der fehler\n");
+		if (current == stack)
+			break ;
 	}
+	while ((max_num >> bits) != 0)
+		bits++;
 	return (bits);
 }
+// int	get_max_bits(t_list *stack)
+// {
+// 	int		max_num;
+// 	int		bits;
+// 	t_list	*current;
+// 	int		num;
 
-void bubble_sort(t_list **stack_a, t_list **stack_b) {
-int swapped;
-	t_list *current;
-	t_list *next;
-	t_si_content *current_content;
-	t_si_content *next_content;
+// 	max_num = 0;
+// 	bits = 0;
+// 	current = stack;
+// 	if (stack == NULL)
+// 	{
+// 		return (0);
+// 	}
+// 	do
+// 	{
+// 		num = *((int *)current->content);
+// 		if (num > max_num)
+// 		{
+// 			max_num = num;
+// 		}
+// 		current = current->next;
+// 	} while (current != stack && current != NULL);
+// 	while ((max_num >> bits) != 0)
+// 	{
+// 		bits++;
+// 	}
+// 	return (bits);
+// }
+// oldnew
+void	bubble_sort_index(t_list *head)
+{
+	int				swapped;
+	t_list			*ptr1;
+	t_list			*lptr;
+	t_si_content	*temp_content;
+	t_si_content	*content1;
+	t_si_content	*content2;
 
-	if (*stack_a == NULL)
+	lptr = NULL;
+	if (head == NULL)
 	{
-		return;
+		return ;
 	}
-
-	if (is_sorted(*stack_a))
-		return (0);
 	swapped = 1;
 	while (swapped)
 	{
 		swapped = 0;
-		current = *stack_a;
-
-		while (current->next != *stack_a)
+		ptr1 = head;
+		while (ptr1->next != lptr)
 		{
-			next = current->next;
-			current_content = (t_si_content *)current->content;
-			next_content = (t_si_content *)next->content;
-
-				if (current_content->number > next_content->number)
-				{
-				push_b(stack_a, stack_b);
-				push_b(stack_a, stack_b);
-				swap_b(stack_b);
-				push_a(stack_a, stack_b);
-				push_a(stack_a, stack_b);
+			content1 = (t_si_content *)ptr1->content;
+			content2 = (t_si_content *)ptr1->next->content;
+			if (content1->number > content2->number)
+			{
+				temp_content = ptr1->content;
+				ptr1->content = ptr1->next->content;
+				ptr1->next->content = temp_content;
 				swapped = 1;
-				}
-			 else
-				{
-				rotate_a(stack_a);
-				}
-				current = current->next;
-				}
-			while (*stack_b != NULL) {
-			push_a(stack_a, stack_b);
 			}
-			current = *stack_a;
+			ptr1 = ptr1->next;
+		}
+		lptr = ptr1;
 	}
 }
+// newnew not working
+// void	bubble_sort(t_list *head)
+// {
+// 	int				swapped;
+// 	t_list			*ptr1;
+// 	t_list			*lptr;
+// 	t_si_content	*content1;
+// 	t_si_content	*content2;
+// 	int				temp_index;
+
+// 	lptr = NULL;
+// 	if (head == NULL)
+// 		return ;
+// 	swapped = 1;
+// 	while (swapped)
+// 	{
+// 		swapped = 0;
+// 		ptr1 = head;
+// 		while (ptr1->next != lptr)
+// 		{
+// 			content1 = (t_si_content *)ptr1->content;
+// 			content2 = (t_si_content *)ptr1->next->content;
+// 			if (content1->number > content2->number)
+// 			{
+// 				// Tauschen der Indizes
+// 				temp_index = content1->index;
+// 				content1->index = content2->index;
+// 				content2->index = temp_index;
+// 				swapped = 1;
+// 			}
+// 			ptr1 = ptr1->next;
+// 		}
+// 		lptr = ptr1;
+// 	}
+// }
+
+// void	bubble_sort(t_list **stack_a, t_list **stack_b)
+// {
+// 	int				swapped;
+// 	t_list			*current;
+// 	t_list			*next;
+// 	t_si_content	*current_content;
+// 	t_si_content	*next_content;
+
+// 	if (*stack_a == NULL || (*stack_a)->next == *stack_a)
+// 	{
+// 		return ;
+// 	}
+// 	if (is_sorted(*stack_a))
+// 		return ;
+// 	swapped = 1;
+// 	while (swapped)
+// 	{
+// 		swapped = 0;
+// 		current = *stack_a;
+// 		while (1)
+// 		{
+// 			next = current->next;
+// 			current_content = (t_si_content *)current->content;
+// 			next_content = (t_si_content *)next->content;
+// 			if (current_content->number > next_content->number)
+// 			{
+// 				push_b(stack_a, stack_b);
+// 				push_b(stack_a, stack_b);
+// 				swap_b(stack_b);
+// 				push_a(stack_a, stack_b);
+// 				push_a(stack_a, stack_b);
+// 				swapped = 1;
+// 			}
+// 			else
+// 			{
+// 				rotate_a(stack_a);
+// 			}
+// 			current = current->next;
+// 		}
+// 		while (*stack_b != NULL)
+// 		{
+// 			push_a(stack_a, stack_b);
+// 		}
+// 		current = *stack_a;
+// 	}
+// }
 
 int	is_sorted(t_list *list)
 {
@@ -198,15 +268,11 @@ int	radix_sort(t_list **stack_a, t_list **stack_b)
 	int		len;
 
 	int i, j, num, max_bits;
-		// if (*stack_a == NULL || (*stack_a)->next == NULL)
-		// 	{
-		// 		return (0);
-		// 	}
+	t_si_content *content;
 	i = 0;
-	max_bits = get_max_bits(*stack_a);
 	if (is_sorted(*stack_a))
 		return (0);
-
+	max_bits = get_max_bits(*stack_a);
 	while (i < max_bits)
 	{
 		j = 0;
@@ -241,6 +307,69 @@ int	radix_sort(t_list **stack_a, t_list **stack_b)
 	}
 	return (0);
 }
+// new
+// void	set_index(t_list *head)
+// {
+// 	int				index;
+// 	t_list			*current;
+// 	t_si_content	*content;
+
+// 	current = head;
+// 	index = 0;
+// 	while (head != NULL)
+// 	{
+// 		content = (t_si_content *)current->content;
+// 		content->index = index++;
+// 		head = current->next;
+// 	}
+// }
+// old
+void	set_index(t_list *head)
+{
+	int				index;
+	t_si_content	*content;
+
+	index = 0;
+	while (head != NULL)
+	{
+		content = (t_si_content *)head->content;
+		content->index = index++;
+		head = head->next;
+	}
+}
+void	bubble_sort_back(t_list *head)
+{
+	int				swapped;
+	t_list			*ptr1;
+	t_list			*lptr;
+	t_si_content	*content1;
+	t_si_content	*content2;
+	t_si_content	*temp_content;
+
+	lptr = NULL;
+	if (head == NULL)
+		return ;
+	swapped = 1;
+	while (swapped)
+	{
+		swapped = 0;
+		ptr1 = head;
+		while (ptr1->next != lptr)
+		{
+			content1 = (t_si_content *)ptr1->content;
+			content2 = (t_si_content *)ptr1->next->content;
+			if (content1->position > content2->position)
+			{
+				temp_content = ptr1->content;
+				ptr1->content = ptr1->next->content;
+				ptr1->next->content = temp_content;
+				swapped = 1;
+			}
+			ptr1 = ptr1->next;
+		}
+		lptr = ptr1;
+	}
+}
 
 int	main(int argc, char *argv[])
 {
@@ -260,7 +389,7 @@ int	main(int argc, char *argv[])
 	if (argc == 2)
 	{
 		str = argv[1];
-		error_for_quotes(argc, str);
+		error_for_quotes(*argv);
 		new_split(str, &stack_a);
 	}
 	if (argc > 2)
@@ -281,45 +410,57 @@ int	main(int argc, char *argv[])
 			new_node = ft_lstnew((void *)thecontent);
 			if (new_node == NULL)
 			{
-				new_node->next = stack_a;
+				// new_node->next = stack_a;
 				ft_putstr_fd("Error\n", 2);
 				free(thecontent);
 			}
-			else
-			{
-				ft_lstadd_back(&stack_a, new_node);
-			}
+			ft_lstadd_back(&stack_a, new_node);
 			i++;
 		}
 	}
 	// ft_printf("Stack A\n");
-	bubble_sort(&stack_a, &stack_b);
-	// printlist(stack_a);
-	// ft_printf("Stack B");
-	// printlist(stack_b);
+	bubble_sort_index(stack_a);
+	set_index(stack_a);
+	ft_printf("Stack A index sorting:\n");
+	printlist(stack_a);
+	bubble_sort_back(stack_a);
+	ft_printf("Stack back to possition:A\n");
+	printlist(stack_a);
+	radix_sort(&stack_a, &stack_b);
+	ft_printf("Stack A after redix sort");
+	 printlist(stack_a);
 	// Funktion mit der ich dann die Zahlen sortiere
 	return (0);
 }
 
-void remove_leading_zeros(char *str)
+void	remove_leading_zeros(char *str)
 {
-	int i = 0;
-	int j = 0;
-if (str == NULL || *str == '\0')
-{
-return;
-}
-	while (str[i] == '0' && str[i + 1] != '\0') {
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	if (str == NULL || *str == '\0')
+	{
+		return ;
+	}
+	while (str[i] == '0' && str[i + 1] != '\0')
+	{
 		i++;
 	}
-
-		while (str[i] != '\0') {
-			str[j++] = str[i++];
-		}
-		str[j] = '\0';
+	while (str[i] != '\0')
+	{
+		str[j++] = str[i++];
+	}
+	str[j] = '\0';
 }
-	// main plan :
-// wenn ich nur 1 zahla ls argument hab segfault -> muss ich fixen!
-//wenn es nur 2 zahlen sind muss ich erst ueberprüfen ob die sortiert sind und wenn nicht dann nur swapen.
+// main plan :
+// wenn es nur 2 zahlen sind muss ich erst ueberprüfen ob die sortiert sind und wenn nicht dann nur swapen.
 // der algorithmus ist scheisse und ich muss was besseres finden weil ich unter 700 schritte pro 100 zahlen kommen muss.
 
+// jeder zahl ein index geben mit bubble sort um dann die zahlen zu sortieren und dann mit redix sort sortieren aber nur die indexe nicht die zahlen an sich
+// und dann mit redix sort sortieren die liste mit den indexen die dann aber noch durcheinander sind
+// und dann hab ih die kleineren zahlen und die - zahlen abgedeckt
+// also ich sortiere mit bubble sort dann sortier ich wieder zurueck nach possition und dann sortiere ich mit redix sort aber nach dem index mit den operatinen
+// ich muss noch den radix sort fuer ohne " " fertig machen und fuer die mit "" alles noch anpassen
+// 

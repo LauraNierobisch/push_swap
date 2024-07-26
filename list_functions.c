@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:30:54 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/22 11:26:21 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/07/26 10:19:51 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,28 +41,28 @@ void	ft_lstremove_front(t_list **lst)
 	free(start);
 }
 
-
-//old
+// old
 void	printlist(t_list *head)
 {
-	t_list	*temp;
-	if(head == NULL)
+	t_list			*temp;
+	t_si_content	*content;
+
+	if (head == NULL)
 	{
 		return ;
 	}
 	temp = head;
 	while (temp != NULL)
 	{
-		t_si_content *content = (t_si_content *)temp->content;
-		ft_printf("Number: %d, Position: %d, Index: %d\n", content->number, content->position, content->index);
+		content = (t_si_content *)temp->content;
+		ft_printf("Number: %d, Position: %d, Index: %d\n", content->number,
+			content->position, content->index);
 		temp = temp->next;
 		if (temp == head)
 			break ;
 	}
 	ft_printf("\n");
 }
-
-
 
 void	free_list(t_list *head)
 {
@@ -83,34 +83,46 @@ void	free_list(t_list *head)
 	}
 }
 
-void insert_node(t_list **head, t_list *new_node) {
-    if (*head == NULL) {
-        *head = new_node;
-        new_node->next = new_node;
-    } else {
-        t_list *last = *head;
-        while (last->next != *head) {
-            last = last->next;
-        }
-        last->next = new_node;
-        new_node->next = *head;
-    }
-}
-t_list *create_node(int value) {
-    t_si_content *content = (t_si_content *)malloc(sizeof(t_si_content));
-    if (content == NULL) {
-        return NULL;
-    }
-    content->number = value;
-    content->position = 0;
-    content->index = 0;
+void	insert_node(t_list **head, t_list *new_node)
+{
+	t_list	*last;
 
-    t_list *node = (t_list *)malloc(sizeof(t_list));
-    if (node == NULL) {
-        free(content);
-        return NULL;
-    }
-    node->content = (void *)content;
-    node->next = NULL;
-    return node;
+	if (*head == NULL)
+	{
+		*head = new_node;
+		new_node->next = new_node;
+	}
+	else
+	{
+		last = *head;
+		while (last->next != *head)
+		{
+			last = last->next;
+		}
+		last->next = new_node;
+		new_node->next = *head;
+	}
+}
+t_list	*create_node(int value)
+{
+	t_si_content	*content;
+	t_list			*node;
+
+	content = (t_si_content *)malloc(sizeof(t_si_content));
+	if (content == NULL)
+	{
+		return (NULL);
+	}
+	content->number = value;
+	content->position = 0;
+	content->index = 0;
+	node = (t_list *)malloc(sizeof(t_list));
+	if (node == NULL)
+	{
+		free(content);
+		return (NULL);
+	}
+	node->content = (void *)content;
+	node->next = NULL;
+	return (node);
 }

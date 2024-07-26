@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 11:47:58 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/22 18:27:30 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:31:57 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,3 @@ void	push_b(t_list **stack_a, t_list **stack_b)
 	temp->next = *stack_b;
 	*stack_b = temp;
 }
-

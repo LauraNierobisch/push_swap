@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 09:59:46 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/23 17:04:31 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/07/25 10:50:56 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ void	error_for_quotes(char *argv)
 	int i;
 	int split_count;
 
+	split_count = 0;
 	i = 0;
 
 	split = ft_split(argv, ' ');
