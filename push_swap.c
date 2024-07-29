@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 12:04:17 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/26 16:59:12 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/07/29 12:39:13 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,66 +61,6 @@ void	new_split(const char *str, t_list **head)
 		number_to_list(num, head);
 }
 
-int	get_max_bits(t_list *stack)
-{
-	int		max_num;
-	int		bits;
-	t_list	*current;
-	int		num;
-
-	max_num = 0;
-	bits = 0;
-	current = stack;
-	if (stack == NULL)
-		return (0);
-	current = stack;
-	while (1)
-	{
-		num = *((int *)current->content);
-		if (num > max_num)
-			max_num = num;
-		current = current->next;
-		if (current == stack)
-		{
-			break ;
-		}
-		//  printf("hier ist der fehler\n");
-		if (current == stack)
-			break ;
-	}
-	while ((max_num >> bits) != 0)
-		bits++;
-	return (bits);
-}
-// int	get_max_bits(t_list *stack)
-// {
-// 	int		max_num;
-// 	int		bits;
-// 	t_list	*current;
-// 	int		num;
-
-// 	max_num = 0;
-// 	bits = 0;
-// 	current = stack;
-// 	if (stack == NULL)
-// 	{
-// 		return (0);
-// 	}
-// 	do
-// 	{
-// 		num = *((int *)current->content);
-// 		if (num > max_num)
-// 		{
-// 			max_num = num;
-// 		}
-// 		current = current->next;
-// 	} while (current != stack && current != NULL);
-// 	while ((max_num >> bits) != 0)
-// 	{
-// 		bits++;
-// 	}
-// 	return (bits);
-// }
 // oldnew
 void	bubble_sort_index(t_list *head)
 {
@@ -157,88 +97,6 @@ void	bubble_sort_index(t_list *head)
 		lptr = ptr1;
 	}
 }
-// newnew not working
-// void	bubble_sort(t_list *head)
-// {
-// 	int				swapped;
-// 	t_list			*ptr1;
-// 	t_list			*lptr;
-// 	t_si_content	*content1;
-// 	t_si_content	*content2;
-// 	int				temp_index;
-
-// 	lptr = NULL;
-// 	if (head == NULL)
-// 		return ;
-// 	swapped = 1;
-// 	while (swapped)
-// 	{
-// 		swapped = 0;
-// 		ptr1 = head;
-// 		while (ptr1->next != lptr)
-// 		{
-// 			content1 = (t_si_content *)ptr1->content;
-// 			content2 = (t_si_content *)ptr1->next->content;
-// 			if (content1->number > content2->number)
-// 			{
-// 				// Tauschen der Indizes
-// 				temp_index = content1->index;
-// 				content1->index = content2->index;
-// 				content2->index = temp_index;
-// 				swapped = 1;
-// 			}
-// 			ptr1 = ptr1->next;
-// 		}
-// 		lptr = ptr1;
-// 	}
-// }
-
-// void	bubble_sort(t_list **stack_a, t_list **stack_b)
-// {
-// 	int				swapped;
-// 	t_list			*current;
-// 	t_list			*next;
-// 	t_si_content	*current_content;
-// 	t_si_content	*next_content;
-
-// 	if (*stack_a == NULL || (*stack_a)->next == *stack_a)
-// 	{
-// 		return ;
-// 	}
-// 	if (is_sorted(*stack_a))
-// 		return ;
-// 	swapped = 1;
-// 	while (swapped)
-// 	{
-// 		swapped = 0;
-// 		current = *stack_a;
-// 		while (1)
-// 		{
-// 			next = current->next;
-// 			current_content = (t_si_content *)current->content;
-// 			next_content = (t_si_content *)next->content;
-// 			if (current_content->number > next_content->number)
-// 			{
-// 				push_b(stack_a, stack_b);
-// 				push_b(stack_a, stack_b);
-// 				swap_b(stack_b);
-// 				push_a(stack_a, stack_b);
-// 				push_a(stack_a, stack_b);
-// 				swapped = 1;
-// 			}
-// 			else
-// 			{
-// 				rotate_a(stack_a);
-// 			}
-// 			current = current->next;
-// 		}
-// 		while (*stack_b != NULL)
-// 		{
-// 			push_a(stack_a, stack_b);
-// 		}
-// 		current = *stack_a;
-// 	}
-// }
 
 int	is_sorted(t_list *list)
 {
@@ -259,16 +117,55 @@ int	is_sorted(t_list *list)
 	}
 	return (1); // Liste ist sortiert
 }
-// hier muss ich checken ob ich mehr als eine zahl erhalten hab wenn ich nur eine zahl hab mach ich nix return(0).
-// und ich Ueberpruefe ob die zahlen schon sortiert sind wenn ja return (0).nix wird sortiert.
+int	get_list_length(t_list *stack)
+{
+	int		len;
+	t_list	*current;
 
+	len = 0;
+	current = stack;
+	while (current != NULL)
+	{
+		current = current->next;
+		len++;
+	}
+
+	return (len);
+}
+
+int	get_max_bits(t_list *stack)
+{
+	int				max_num;
+	int				bits;
+	t_list			*current;
+	t_si_content	*content;
+
+	max_num = 0;
+	bits = 0;
+	current = stack;
+	if (stack == NULL)
+		return (0);
+	while (current->next)
+	{
+		content = (t_si_content *)current->content;
+		if (content->index > max_num)
+			max_num = content->index;
+		current = current->next;
+	}
+	content = (t_si_content *)current->content;
+	if (content->index > max_num)
+		max_num = content->index;
+	while ((max_num >> bits) != 0)
+		bits++;
+	return (bits);
+}
 int	radix_sort(t_list **stack_a, t_list **stack_b)
 {
-	t_list	*current;
-	int		len;
+	// t_list			*current;
+	t_si_content	*content;
+	int				len;
 
 	int i, j, num, max_bits;
-	t_si_content *content;
 	i = 0;
 	if (is_sorted(*stack_a))
 		return (0);
@@ -276,19 +173,11 @@ int	radix_sort(t_list **stack_a, t_list **stack_b)
 	while (i < max_bits)
 	{
 		j = 0;
-		current = *stack_a;
-		len = 0;
-		if (current != NULL)
-		{
-			do
-			{
-				len++;
-				current = current->next;
-			} while (current != *stack_a && current != NULL);
-		}
+		len = get_list_length(*stack_a);
 		while (j < len)
 		{
-			num = *((int *)(*stack_a)->content);
+			content = (t_si_content *)(*stack_a)->content;
+			num = content->index;
 			if (((num >> i) & 1) == 1)
 			{
 				rotate_a(stack_a);
@@ -307,6 +196,53 @@ int	radix_sort(t_list **stack_a, t_list **stack_b)
 	}
 	return (0);
 }
+
+// old
+// int	radix_sort(t_list **stack_a, t_list **stack_b)
+// {
+// 	t_list			*current;
+// 	int				len;
+// 	t_si_content	*content;
+
+// 	int i, j, num, max_bits;
+// 	i = 0;
+// 	if (is_sorted(*stack_a))
+// 		return (0);
+// 	max_bits = get_max_bits(*stack_a);
+// 	while (i < max_bits)
+// 	{
+// 		j = 0;
+// 		current = *stack_a;
+// 		len = 0;
+// 		while (current->next != *stack_a)
+// 		{
+// 			len++;
+// 			current = current->next;
+// 		}
+// 		len++;
+// 		current = *stack_a;
+// 		while (j < len)
+// 		{
+// 			content = (t_si_content *)current->content;
+// 			num = content->index;
+// 			if (((num >> i) & 1) == 1)
+// 			{
+// 				rotate_a(stack_a);
+// 			}
+// 			else
+// 			{
+// 				push_b(stack_a, stack_b);
+// 			}
+// 			j++;
+// 		}
+// 		while (*stack_b != NULL)
+// 		{
+// 			push_a(stack_a, stack_b);
+// 		}
+// 		i++;
+// 	}
+// 	return (0);
+// }
 // new
 // void	set_index(t_list *head)
 // {
@@ -427,8 +363,8 @@ int	main(int argc, char *argv[])
 	ft_printf("Stack back to possition:A\n");
 	printlist(stack_a);
 	radix_sort(&stack_a, &stack_b);
-	ft_printf("Stack A after redix sort");
-	 printlist(stack_a);
+	ft_printf("Stack A after redix sort\n");
+	printlist(stack_a);
 	// Funktion mit der ich dann die Zahlen sortiere
 	return (0);
 }
@@ -463,4 +399,4 @@ void	remove_leading_zeros(char *str)
 // und dann hab ih die kleineren zahlen und die - zahlen abgedeckt
 // also ich sortiere mit bubble sort dann sortier ich wieder zurueck nach possition und dann sortiere ich mit redix sort aber nach dem index mit den operatinen
 // ich muss noch den radix sort fuer ohne " " fertig machen und fuer die mit "" alles noch anpassen
-// 
+//
