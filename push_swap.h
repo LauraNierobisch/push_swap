@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:03:25 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/26 09:52:19 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/07/29 19:48:28 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ void	rr(t_list **stack_a, t_list **stack_b);
 void	swap_a(t_list **stack_a);
 void	swap_b(t_list **stack_b);
 void	ss(t_list **stack_a, t_list **stack_b);
-void	new_split(const char *str, t_list **head);
+int		new_split(const char *str, t_list **head);
 int		get_max_bits(t_list *stack);
 char	error_function(void);
 int		error_checker_complete(int argc, char *argv[]);
-void	error_for_quotes( char *argv);
+void	error_for_quotes(char *argv);
 int		radix_sort(t_list **stack_a, t_list **stack_b);
 int		is_sorted(t_list *list);
 #endif

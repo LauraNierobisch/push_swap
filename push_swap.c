@@ -6,42 +6,43 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 12:04:17 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/29 12:39:13 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/07/29 20:09:18 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	number_to_list(int num, t_list **head)
+void	number_to_list(int num, int pos, t_list **head)
 {
-	t_list	*new_node;
-	int		*num_ptr;
+	t_list			*new_node;
+	t_si_content	*content;
 
-	num_ptr = malloc(sizeof(int));
-	if (num_ptr != NULL)
+	content = (t_si_content *)malloc(sizeof(t_si_content));
+	if (content != NULL)
 	{
-		*num_ptr = num;
-		new_node = ft_lstnew(num_ptr);
+		content->number = num;
+		content->position = pos;
+		new_node = ft_lstnew(content);
 		if (new_node != NULL)
 		{
 			ft_lstadd_back(head, new_node);
 		}
 		else
 		{
-			free(num_ptr);
+			free(content);
 		}
 	}
 }
 
-void	new_split(const char *str, t_list **head)
+int	new_split(const char *str, t_list **head)
 {
 	int	num;
 	int	in_number;
+	int	position;
 
-	// int		*num_ptr;
-	// t_list	*new_node;
 	num = 0;
 	in_number = 0;
+	position = 0;
 	while (*str != '\0')
 	{
 		if (ft_isdigit(*str))
@@ -51,15 +52,86 @@ void	new_split(const char *str, t_list **head)
 		}
 		else if (in_number)
 		{
-			number_to_list(num, head);
+			number_to_list(num, position, head);
 			num = 0;
 			in_number = 0;
+		}
+		if (!ft_isdigit(*str))
+		{
+			position++;
 		}
 		str++;
 	}
 	if (in_number)
-		number_to_list(num, head);
+	{
+		number_to_list(num, position, head);
+	}
+	return (0);
 }
+
+// void	number_to_list(int num, t_list **head)
+// {
+// 	t_list	*new_node;
+// 	int		*num_ptr;
+// 	int		i;
+
+// 	// t_si_content	*thecontent;
+// 	i = 0;
+// 	// thecontent = NULL;
+// 	num_ptr = malloc(sizeof(int));
+// 	if (num_ptr != NULL)
+// 	{
+// 		*num_ptr = num;
+// 		new_node = ft_lstnew(num_ptr);
+// 		if (new_node != NULL)
+// 		{
+// 			ft_lstadd_back(head, new_node);
+// 			i++;
+// 		}
+// 		else
+// 		{
+// 			free(num_ptr);
+// 		}
+// 		// thecontent->position = i - 1;
+// 	}
+// }
+
+// int	new_split(const char *str, t_list **head)
+// {
+// 	int				num;
+// 	int				in_number;
+// 	t_si_content	*thecontent;
+// 	const char *start_str = str;
+
+// 	thecontent = (t_si_content *)malloc(sizeof(t_si_content));
+// 	if (thecontent == NULL)
+// 	{
+// 		ft_putstr_fd("Error\n", 2);
+// 		return (1);
+// 		free(thecontent);
+// 	}
+// 	num = 0;
+// 	in_number = 0;
+// 	while (*str != '\0')
+// 	{
+// 		if (ft_isdigit(*str))
+// 		{
+// 			num = num * 10 + (*str - '0');
+// 			in_number = 1;
+// 		}
+// 		else if (in_number)
+// 		{
+// 			number_to_list(num, head);
+// 			num = 0;
+// 			in_number = 0;
+// 		}
+// 		str++;
+// 	}
+// 	if (in_number)
+// 		number_to_list(num, head);
+// 	thecontent->position = (int)(str - start_str -1);
+// 	return(0);
+// }
 
 // oldnew
 void	bubble_sort_index(t_list *head)
@@ -117,6 +189,85 @@ int	is_sorted(t_list *list)
 	}
 	return (1); // Liste ist sortiert
 }
+// int get_list_length(t_list *stack)
+// {
+// 	int len;
+// 	t_list *current;
+
+// 	len = 0;
+// 	current = stack;
+// 	while (current != NULL)
+// 	{
+// 		current = current->next;
+// 		len++;
+// 	}
+
+// 	return (len);
+// }
+
+// int get_max_bits(t_list *stack)
+// {
+// 	int max_num;
+// 	int bits;
+// 	t_list *current;
+// 	t_si_content *content;
+
+// 	max_num = 0;
+// 	bits = 0;
+// 	current = stack;
+// 	if (stack == NULL)
+// 		return (0);
+// 	while (current != NULL)
+// 	{
+// 		content = (t_si_content *)current->content;
+// 		if (content->index > max_num)
+// 			max_num = content->index;
+// 		current = current->next;
+// 	}
+// 	while ((max_num >> bits) != 0)
+// 		bits++;
+// 	return (bits);
+// }
+
+// int radix_sort(t_list **stack_a, t_list **stack_b)
+// {
+// 	t_si_content *content;
+// 	int len;
+// 	int i, j, num, max_bits;
+
+// 	i = 0;
+// 	if (is_sorted(*stack_a))
+// 		return (0);
+// 	max_bits = get_max_bits(*stack_a);
+// 	while (i < max_bits)
+// 	{
+// 		j = 0;
+// 		len = get_list_length(*stack_a);
+// 		while (j < len)
+// 		{
+// 			content = (t_si_content *)(*stack_a)->content;
+// 			num = content->index;
+// 			if (((num >> i) & 1) == 1)
+// 			{
+// 				rotate_a(stack_a); // Behalte das Element in stack_a
+// 			}
+// 			else
+// 			{
+// 				push_b(stack_a, stack_b); // Verschiebe das Element nach stack_b
+// 			}
+// 			j++;
+// 		}
+// 		while (*stack_b != NULL)
+// 		{
+// 			push_a(stack_a, stack_b);
+// Verschiebe die Elemente zurück nach stack_a
+// 		}
+// 		i++;
+// 	}
+// 	return (0);
+// }
+
+//?kind of worked?
 int	get_list_length(t_list *stack)
 {
 	int		len;
@@ -129,7 +280,6 @@ int	get_list_length(t_list *stack)
 		current = current->next;
 		len++;
 	}
-
 	return (len);
 }
 
@@ -161,10 +311,10 @@ int	get_max_bits(t_list *stack)
 }
 int	radix_sort(t_list **stack_a, t_list **stack_b)
 {
-	// t_list			*current;
 	t_si_content	*content;
 	int				len;
 
+	// t_list			*current;
 	int i, j, num, max_bits;
 	i = 0;
 	if (is_sorted(*stack_a))
@@ -197,68 +347,6 @@ int	radix_sort(t_list **stack_a, t_list **stack_b)
 	return (0);
 }
 
-// old
-// int	radix_sort(t_list **stack_a, t_list **stack_b)
-// {
-// 	t_list			*current;
-// 	int				len;
-// 	t_si_content	*content;
-
-// 	int i, j, num, max_bits;
-// 	i = 0;
-// 	if (is_sorted(*stack_a))
-// 		return (0);
-// 	max_bits = get_max_bits(*stack_a);
-// 	while (i < max_bits)
-// 	{
-// 		j = 0;
-// 		current = *stack_a;
-// 		len = 0;
-// 		while (current->next != *stack_a)
-// 		{
-// 			len++;
-// 			current = current->next;
-// 		}
-// 		len++;
-// 		current = *stack_a;
-// 		while (j < len)
-// 		{
-// 			content = (t_si_content *)current->content;
-// 			num = content->index;
-// 			if (((num >> i) & 1) == 1)
-// 			{
-// 				rotate_a(stack_a);
-// 			}
-// 			else
-// 			{
-// 				push_b(stack_a, stack_b);
-// 			}
-// 			j++;
-// 		}
-// 		while (*stack_b != NULL)
-// 		{
-// 			push_a(stack_a, stack_b);
-// 		}
-// 		i++;
-// 	}
-// 	return (0);
-// }
-// new
-// void	set_index(t_list *head)
-// {
-// 	int				index;
-// 	t_list			*current;
-// 	t_si_content	*content;
-
-// 	current = head;
-// 	index = 0;
-// 	while (head != NULL)
-// 	{
-// 		content = (t_si_content *)current->content;
-// 		content->index = index++;
-// 		head = current->next;
-// 	}
-// }
 // old
 void	set_index(t_list *head)
 {
@@ -319,9 +407,6 @@ int	main(int argc, char *argv[])
 	thecontent = NULL;
 	stack_a = NULL;
 	stack_b = NULL;
-	// if ((argc == 2 && !argv[1][0]))
-	// 	return(0);
-	// ft_putstr_fd("Error\n", 2);
 	if (argc == 2)
 	{
 		str = argv[1];
@@ -338,6 +423,7 @@ int	main(int argc, char *argv[])
 			{
 				ft_putstr_fd("Error\n", 2);
 				return (1);
+				free(thecontent);
 			}
 			error_checker_complete(argc, argv);
 			thecontent->number = ft_atoi(argv[i]);
@@ -346,7 +432,6 @@ int	main(int argc, char *argv[])
 			new_node = ft_lstnew((void *)thecontent);
 			if (new_node == NULL)
 			{
-				// new_node->next = stack_a;
 				ft_putstr_fd("Error\n", 2);
 				free(thecontent);
 			}
@@ -357,16 +442,19 @@ int	main(int argc, char *argv[])
 	// ft_printf("Stack A\n");
 	bubble_sort_index(stack_a);
 	set_index(stack_a);
-	ft_printf("Stack A index sorting:\n");
-	printlist(stack_a);
+	// ft_printf("Stack A index sorting:\n");
+	// printlist(stack_a);
 	bubble_sort_back(stack_a);
-	ft_printf("Stack back to possition:A\n");
-	printlist(stack_a);
+	// ft_printf("Stack back to possition:A\n");
+	// printlist(stack_a);
 	radix_sort(&stack_a, &stack_b);
-	ft_printf("Stack A after redix sort\n");
-	printlist(stack_a);
+	// ft_printf("Stack A after redix sort\n");
+	// printlist(stack_a);
 	// Funktion mit der ich dann die Zahlen sortiere
+	// free_list(stack_a);
 	return (0);
+	free_list(stack_a);
+	free_list(stack_b);
 }
 
 void	remove_leading_zeros(char *str)

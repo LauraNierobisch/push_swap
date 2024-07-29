@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 12:04:07 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/22 18:29:10 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/07/29 16:57:42 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	rotate_a(t_list **stack_a)
 {
 	t_list	*first;
 	t_list	*last;
+
 
 	if (*stack_a == NULL || (*stack_a)->next == NULL)
 	{

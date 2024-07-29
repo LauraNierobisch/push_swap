@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:02:01 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/04/11 15:08:35 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/07/29 18:24:44 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 static int	ft_count_digits(int n)
 {
 	int	count;
-	int	sign;
+	// int	sign;
 
 	count = 0;
-	sign = 1;
+	// sign = 1;
 	if (n < 0)
 		count++;
 	while (n != 0)
@@ -26,10 +26,10 @@ static int	ft_count_digits(int n)
 		n = n / 10;
 		count++;
 	}
-	sign = 1;
+	// sign = 1;
 	if (n < 0)
 	{
-		sign = -1;
+		// sign = -1;
 		n = n * -1;
 	}
 	return (count);

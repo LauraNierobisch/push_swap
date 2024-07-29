@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 11:47:58 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/25 14:31:57 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/07/29 18:39:05 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	push_a(t_list **stack_a, t_list **stack_b)
 	{
 		return ;
 	}
+	ft_printf("pa\n");
 	*stack_b = (*stack_b)->next;
 	temp->next = *stack_a;
 	*stack_a = temp;
@@ -81,11 +82,11 @@ void	push_b(t_list **stack_a, t_list **stack_b)
 
 	temp = *stack_a;
 
+	ft_printf("pb\n");
 	if (*stack_a == NULL)
 	{
 		return ;
 	}
-	ft_printf("pa\n");
 	*stack_a = (*stack_a)->next;
 	temp->next = *stack_b;
 	*stack_b = temp;
