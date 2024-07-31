@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 12:04:17 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/29 20:09:18 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/07/31 12:32:25 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -442,14 +442,14 @@ int	main(int argc, char *argv[])
 	// ft_printf("Stack A\n");
 	bubble_sort_index(stack_a);
 	set_index(stack_a);
-	// ft_printf("Stack A index sorting:\n");
-	// printlist(stack_a);
+	//  ft_printf("Stack A index sorting:\n");
+	//  printlist(stack_a);
 	bubble_sort_back(stack_a);
-	// ft_printf("Stack back to possition:A\n");
-	// printlist(stack_a);
+	//  ft_printf("Stack back to possition:A\n");
+	//  printlist(stack_a);
 	radix_sort(&stack_a, &stack_b);
-	// ft_printf("Stack A after redix sort\n");
-	// printlist(stack_a);
+	//  ft_printf("Stack A after redix sort\n");
+	//  printlist(stack_a);
 	// Funktion mit der ich dann die Zahlen sortiere
 	// free_list(stack_a);
 	return (0);
@@ -488,3 +488,9 @@ void	remove_leading_zeros(char *str)
 // also ich sortiere mit bubble sort dann sortier ich wieder zurueck nach possition und dann sortiere ich mit redix sort aber nach dem index mit den operatinen
 // ich muss noch den radix sort fuer ohne " " fertig machen und fuer die mit "" alles noch anpassen
 //
+//to do
+// Nullen vor der error kontrolle wegschneiden
+// -5 - behandeln
+// 0 und -0 als doppelte zahlen behandeln 
+// 3er extra sortierung machen
+//aus dreier sortierung 5er sortierung machen
