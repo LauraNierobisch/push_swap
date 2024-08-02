@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 09:59:46 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/31 11:23:37 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/08/02 11:04:15 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,8 +185,12 @@ int	ft_numbers_only(int argc, char **argv)
 int	numbers_only(int argc, char **argv)
 {
 	int	i;
-
 	i = 1;
+	if (argc ==1)
+	{
+		i = 0;
+	}
+
 	while (i < argc)
 	{
 		if (!is_number(argv[i]))
@@ -243,11 +247,11 @@ int	in_long_range(int argc, char *argv[])
 // neue function um -0 und 0 zu finden wenn beides vorhanden ist dann error
 int	error_checker_complete(int argc, char *argv[])
 {
-	if (!numbers_only(argc, argv))
-	{
-		ft_putstr_fd("Error\n", 2);
+	 if (!numbers_only(argc, argv))
+	 {
+	 	ft_putstr_fd("Error\n", 2);
 		exit(EXIT_FAILURE);
-	}
+	 }
 	if (!in_long_range(argc, argv))
 	{
 		ft_putstr_fd("Error\n", 2);
@@ -282,6 +286,7 @@ int	ft_error_checker_complete(int argc, char *argv[])
 }
 void	error_for_quotes(char *argv)
 {
+	printf("[[%s]]\n", argv);
 	char	**split;
 	int		i;
 	int		split_count;
@@ -294,6 +299,7 @@ void	error_for_quotes(char *argv)
 	while (split[split_count] != NULL)
 	{
 		split_count++;
+	printf("[[%i]]\n", split_count);
 	}
 	// if (split_count == 1)
 	// {
@@ -303,7 +309,11 @@ void	error_for_quotes(char *argv)
 	// 		exit(EXIT_FAILURE);
 	// 	}
 	// }
-	ft_error_checker_complete(split_count, split);
+	if(split_count > 1)
+		error_checker_complete(split_count, split);
+	printf("[%i]\n", split_count);
+	// if(split_count == 1)
+	//ft_error_checker_complete(split_count, split);
 	if (split)
 	{
 		while (split[i] != NULL)

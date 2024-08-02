@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 12:04:17 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/31 12:32:25 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/08/02 11:00:21 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -403,19 +403,30 @@ int	main(int argc, char *argv[])
 	t_list			*stack_b;
 	t_si_content	*thecontent;
 	t_list			*new_node;
-
+	int 			split_count;
+	split_count = argc;
+		i = 1;
 	thecontent = NULL;
 	stack_a = NULL;
 	stack_b = NULL;
 	if (argc == 2)
 	{
 		str = argv[1];
-		error_for_quotes(*argv);
-		new_split(str, &stack_a);
-	}
-	if (argc > 2)
+		// error_for_quotes(*argv);
+		// error_for_quotes(argv[1]);
+		//new_split(str, &stack_a);
+		argv = ft_split(argv[1], ' ');
+		split_count = 1;
+		while (argv[split_count] != NULL)
 	{
-		i = 1;
+		split_count++;
+	// printf("[[%i]]\n", split_count);
+	}
+	argc = split_count;
+	i = 0;
+	}
+
+
 		while (i < argc)
 		{
 			thecontent = (t_si_content *)malloc(sizeof(t_si_content));
@@ -426,8 +437,11 @@ int	main(int argc, char *argv[])
 				free(thecontent);
 			}
 			error_checker_complete(argc, argv);
+
+			printf("[%i]\n", argc);
+
 			thecontent->number = ft_atoi(argv[i]);
-			thecontent->position = i - 1;
+			thecontent->position = i;
 			thecontent->index = 0;
 			new_node = ft_lstnew((void *)thecontent);
 			if (new_node == NULL)
@@ -438,19 +452,29 @@ int	main(int argc, char *argv[])
 			ft_lstadd_back(&stack_a, new_node);
 			i++;
 		}
-	}
 	// ft_printf("Stack A\n");
 	bubble_sort_index(stack_a);
 	set_index(stack_a);
-	//  ft_printf("Stack A index sorting:\n");
-	//  printlist(stack_a);
+	ft_printf("Stack A index sorting:\n");
+	printlist(stack_a);
 	bubble_sort_back(stack_a);
-	//  ft_printf("Stack back to possition:A\n");
-	//  printlist(stack_a);
+	ft_printf("Stack back to possition:A\n");
+	printlist(stack_a);
+	// three_numbers(&stack_a);
+
+	if(get_list_length(stack_a) == 3)
+	{
+	three_numbers(&stack_a);
+		ft_printf("Stack A after threenumbers sort\n");
+		 printlist(stack_a);
+	}
+	if(get_list_length(stack_a) > 3)
+	{
 	radix_sort(&stack_a, &stack_b);
-	//  ft_printf("Stack A after redix sort\n");
-	//  printlist(stack_a);
-	// Funktion mit der ich dann die Zahlen sortiere
+	}
+	// ft_printf("Stack A after redix sort\n");
+	// printlist(stack_a);
+	//Funktion mit der ich dann die Zahlen sortiere
 	// free_list(stack_a);
 	return (0);
 	free_list(stack_a);
@@ -491,6 +515,6 @@ void	remove_leading_zeros(char *str)
 //to do
 // Nullen vor der error kontrolle wegschneiden
 // -5 - behandeln
-// 0 und -0 als doppelte zahlen behandeln 
+// 0 und -0 als doppelte zahlen behandeln
 // 3er extra sortierung machen
 //aus dreier sortierung 5er sortierung machen
