@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 09:59:46 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/08/02 11:04:15 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/08/02 16:04:24 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,8 @@ int	dupli_int(int argc, char **argv)
 		j = i + 1;
 		while (j < argc)
 		{
+			remove_leading_zeros(argv[i]);
+			remove_leading_zeros(argv[j]);
 			if (ft_strcmp(argv[i], argv[j]) == 0)
 			// || (argv[i] == 0 && argv[j] == -0)
 			// || (argv[i] == -0 && argv[j] == 0))
@@ -247,6 +249,7 @@ int	in_long_range(int argc, char *argv[])
 // neue function um -0 und 0 zu finden wenn beides vorhanden ist dann error
 int	error_checker_complete(int argc, char *argv[])
 {
+
 	 if (!numbers_only(argc, argv))
 	 {
 	 	ft_putstr_fd("Error\n", 2);
@@ -262,28 +265,80 @@ int	error_checker_complete(int argc, char *argv[])
 		ft_putstr_fd("Error\n", 2);
 		exit(EXIT_FAILURE);
 	}
+	if(zero_together(argc, argv))
+ 	{
+ 		ft_putstr_fd("Error\n", 2);
+ 		exit(EXIT_FAILURE);
+ 	}
 	return (0);
 }
 
-int	ft_error_checker_complete(int argc, char *argv[])
+int zero_together(int argc, char *argv[])
 {
-	if (!ft_numbers_only(argc, argv))
+	int	i;
+
+	i = 0;
+	// if (argc ==1)
+	// {
+	// 	i = 0;
+	// }
+	while (i < argc)
 	{
-		ft_putstr_fd("Error\n", 2);
-		exit(EXIT_FAILURE);
+		if (ft_strcmp(argv[i], "-") == 0)
+		{
+			return (1);
+		}
+		if ((ft_strcmp(argv[i], "-0") == 0))
+		{
+			return (1);
+		}
+		if (ft_strcmp(argv[i], "") == 0)
+		{
+			return (1);
+		}
+		if (ft_strcmp(argv[i], "--") == 0)
+		{
+			return (1);
+		}
+		if (ft_strcmp(argv[i], "+") == 0)
+		{
+			return (1);
+		}
+		// if (ft_strcmp(argv[i], "  ") == 0)
+		// {
+		// 	return (1);
+		// }
+
+
+		i++;
 	}
-	if (!in_long_range(argc, argv))
-	{
-		ft_putstr_fd("Error\n", 2);
-		exit(EXIT_FAILURE);
-	}
-	if (!dupli_int(argc, argv))
-	{
-		ft_putstr_fd("Error\n", 2);
-		exit(EXIT_FAILURE);
-	}
-	return (0);
+	return(0);
 }
+
+// int	ft_error_checker_complete(int argc, char *argv[])
+// {
+// 	if (!ft_numbers_only(argc, argv))
+// 	{
+// 		ft_putstr_fd("Error\n", 2);
+// 		exit(EXIT_FAILURE);
+// 	}
+// 	if (!in_long_range(argc, argv))
+// 	{
+// 		ft_putstr_fd("Error\n", 2);
+// 		exit(EXIT_FAILURE);
+// 	}
+// 	if (!dupli_int(argc, argv))
+// 	{
+// 		ft_putstr_fd("Error\n", 2);
+// 		exit(EXIT_FAILURE);
+// 	}
+// 	if(zero_together(argc, argv))
+// 	{
+// 		ft_putstr_fd("Error\n", 2);
+// 		exit(EXIT_FAILURE);
+// 	}
+// 	return (0);
+// }
 void	error_for_quotes(char *argv)
 {
 	printf("[[%s]]\n", argv);

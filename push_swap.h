@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:03:25 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/08/02 08:49:28 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/08/02 15:22:23 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,7 @@ int		is_sorted(t_list *list);
 void	three_numbers(t_list **list);
 void	rev_rotate_a(t_list **stack_a);
 int		get_list_length(t_list *stack);
+int		zero_together(int argc, char *argv[]);
+void	remove_leading_zeros(char *str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 12:04:17 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/08/02 11:00:21 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/08/02 15:36:08 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -409,6 +409,10 @@ int	main(int argc, char *argv[])
 	thecontent = NULL;
 	stack_a = NULL;
 	stack_b = NULL;
+	if(argc == 1)
+	{
+		return(0);
+	}
 	if (argc == 2)
 	{
 		str = argv[1];
@@ -438,7 +442,7 @@ int	main(int argc, char *argv[])
 			}
 			error_checker_complete(argc, argv);
 
-			printf("[%i]\n", argc);
+			// printf("[%i]\n", argc);
 
 			thecontent->number = ft_atoi(argv[i]);
 			thecontent->position = i;
@@ -455,13 +459,17 @@ int	main(int argc, char *argv[])
 	// ft_printf("Stack A\n");
 	bubble_sort_index(stack_a);
 	set_index(stack_a);
-	ft_printf("Stack A index sorting:\n");
-	printlist(stack_a);
+	// ft_printf("Stack A index sorting:\n");
+	// printlist(stack_a);
 	bubble_sort_back(stack_a);
-	ft_printf("Stack back to possition:A\n");
-	printlist(stack_a);
+	// ft_printf("Stack back to possition:A\n");
+	// printlist(stack_a);
 	// three_numbers(&stack_a);
-
+if(get_list_length(stack_a)==2)
+{
+	radix_sort(&stack_a, &stack_b);
+	//two_numbers(&stack_a);
+}
 	if(get_list_length(stack_a) == 3)
 	{
 	three_numbers(&stack_a);
@@ -518,3 +526,5 @@ void	remove_leading_zeros(char *str)
 // 0 und -0 als doppelte zahlen behandeln
 // 3er extra sortierung machen
 //aus dreier sortierung 5er sortierung machen
+
+

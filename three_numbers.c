@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 14:38:20 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/08/01 14:52:15 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/08/02 16:46:18 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,3 +54,8 @@ void	three_numbers(t_list **list)
 		}
 	}
 }
+
+// two_numbers(t_list **list)
+// {
+
+// }

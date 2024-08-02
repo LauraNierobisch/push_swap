@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 09:36:01 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/15 11:17:10 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/08/02 17:08:00 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	rev_rotate_a(t_list **stack_a)
 
 	if (*stack_a != NULL && (*stack_a)->next != *stack_a)
 	{
-		ft_printf("rra \n");
+		ft_printf("rra\n");
 		second_last = NULL;
 		last = *stack_a;
-
+//fehler!!!!!!!!!
 		while (last->next != *stack_a)
 		{
 			second_last = last;
