@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 09:59:46 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/08/02 16:04:24 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/08/03 20:21:59 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,19 +184,25 @@ int	ft_numbers_only(int argc, char **argv)
 
 int	numbers_only(int argc, char **argv)
 {
-	int	i;
+	int		i;
+	char	tracker;
+
 	i = 1;
-	if (argc ==1)
+	// printf("numbers_only\n");
+	if (argc == 1)
 	{
 		i = 0;
 	}
-
 	while (i < argc)
 	{
+		// ft_printf("%c\n", *argv[i]);
+		if (tracker == '-' && *argv[i] == '-')
+			return (0);
 		if (!is_number(argv[i]))
 		{
 			return (0);
 		}
+		tracker = *argv[i];
 		i++;
 	}
 	return (1);
@@ -249,12 +255,11 @@ int	in_long_range(int argc, char *argv[])
 // neue function um -0 und 0 zu finden wenn beides vorhanden ist dann error
 int	error_checker_complete(int argc, char *argv[])
 {
-
-	 if (!numbers_only(argc, argv))
-	 {
-	 	ft_putstr_fd("Error\n", 2);
+	if (!numbers_only(argc, argv))
+	{
+		ft_putstr_fd("Error\n", 2);
 		exit(EXIT_FAILURE);
-	 }
+	}
 	if (!in_long_range(argc, argv))
 	{
 		ft_putstr_fd("Error\n", 2);
@@ -265,15 +270,15 @@ int	error_checker_complete(int argc, char *argv[])
 		ft_putstr_fd("Error\n", 2);
 		exit(EXIT_FAILURE);
 	}
-	if(zero_together(argc, argv))
- 	{
- 		ft_putstr_fd("Error\n", 2);
- 		exit(EXIT_FAILURE);
- 	}
+	if (zero_together(argc, argv))
+	{
+		ft_putstr_fd("Error\n", 2);
+		exit(EXIT_FAILURE);
+	}
 	return (0);
 }
 
-int zero_together(int argc, char *argv[])
+int	zero_together(int argc, char *argv[])
 {
 	int	i;
 
@@ -288,10 +293,10 @@ int zero_together(int argc, char *argv[])
 		{
 			return (1);
 		}
-		if ((ft_strcmp(argv[i], "-0") == 0))
-		{
-			return (1);
-		}
+		// if ((ft_strcmp(argv[i], "-0") == 0))
+		// {
+		// 	return (1);
+		// }
 		if (ft_strcmp(argv[i], "") == 0)
 		{
 			return (1);
@@ -304,15 +309,13 @@ int zero_together(int argc, char *argv[])
 		{
 			return (1);
 		}
-		// if (ft_strcmp(argv[i], "  ") == 0)
-		// {
-		// 	return (1);
-		// }
-
-
+		if (ft_strcmp(argv[i], "  ") == 0)
+		{
+			return (1);
+		}
 		i++;
 	}
-	return(0);
+	return (0);
 }
 
 // int	ft_error_checker_complete(int argc, char *argv[])
@@ -341,11 +344,11 @@ int zero_together(int argc, char *argv[])
 // }
 void	error_for_quotes(char *argv)
 {
-	printf("[[%s]]\n", argv);
 	char	**split;
 	int		i;
 	int		split_count;
 
+	// printf("[[%s]]\n", argv);
 	split_count = 0;
 	i = 0;
 	split = ft_split(argv, ' ');
@@ -354,7 +357,7 @@ void	error_for_quotes(char *argv)
 	while (split[split_count] != NULL)
 	{
 		split_count++;
-	printf("[[%i]]\n", split_count);
+		printf("[[%i]]\n", split_count);
 	}
 	// if (split_count == 1)
 	// {
@@ -364,11 +367,11 @@ void	error_for_quotes(char *argv)
 	// 		exit(EXIT_FAILURE);
 	// 	}
 	// }
-	if(split_count > 1)
+	if (split_count > 1)
 		error_checker_complete(split_count, split);
 	printf("[%i]\n", split_count);
 	// if(split_count == 1)
-	//ft_error_checker_complete(split_count, split);
+	// ft_error_checker_complete(split_count, split);
 	if (split)
 	{
 		while (split[i] != NULL)
