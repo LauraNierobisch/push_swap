@@ -5,7 +5,7 @@
 		"name": "C/C++ Runner: Debug Session",
 		"type": "lldb",
 		"request": "launch",
-		"args": ["12 45 85 99 1 4"],
+		"args": ["12", "1","22"],
 		"cwd": "/Users/lnierobi/Desktop/push_swap_git",
 		"program": "/Users/lnierobi/Desktop/push_swap_git/push_swap",
     }

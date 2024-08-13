@@ -1,5 +1,14 @@
 {
 	"files.associations": {
-		"locale": "c"
+		"locale": "c",
+		"__node_handle": "c",
+		"list": "c",
+		"map": "c",
+		"regex": "c",
+		"set": "c",
+		"string": "c",
+		"unordered_map": "c",
+		"unordered_set": "c",
+		"vector": "c"
 	}
 }

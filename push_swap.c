@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 12:04:17 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/29 20:09:18 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/08/03 20:27:51 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -397,57 +397,91 @@ void	bubble_sort_back(t_list *head)
 
 int	main(int argc, char *argv[])
 {
-	char			*str;
+	// char			*str;
 	int				i;
 	t_list			*stack_a;
 	t_list			*stack_b;
 	t_si_content	*thecontent;
 	t_list			*new_node;
+	int				split_count;
 
+	split_count = argc;
+	i = 1;
 	thecontent = NULL;
 	stack_a = NULL;
 	stack_b = NULL;
+	 if (argc == 1)
+	 {
+	 	return (0);
+	}
 	if (argc == 2)
 	{
-		str = argv[1];
-		error_for_quotes(*argv);
-		new_split(str, &stack_a);
-	}
-	if (argc > 2)
-	{
-		i = 1;
-		while (i < argc)
+		// str = argv[1];
+		// error_checker_complete(argc, argv);
+		// error_for_quotes(*argv);
+		// error_for_quotes(argv[1]);
+		// new_split(str, &stack_a);
+		argv = ft_split(argv[1], ' ');
+
+		split_count = 0;
+		while (argv[split_count] != NULL)
 		{
-			thecontent = (t_si_content *)malloc(sizeof(t_si_content));
-			if (thecontent == NULL)
-			{
-				ft_putstr_fd("Error\n", 2);
-				return (1);
-				free(thecontent);
-			}
-			error_checker_complete(argc, argv);
-			thecontent->number = ft_atoi(argv[i]);
-			thecontent->position = i - 1;
-			thecontent->index = 0;
-			new_node = ft_lstnew((void *)thecontent);
-			if (new_node == NULL)
-			{
-				ft_putstr_fd("Error\n", 2);
-				free(thecontent);
-			}
-			ft_lstadd_back(&stack_a, new_node);
-			i++;
+			split_count++;
+			// printf("[[%i]]\n", split_count);
 		}
+		argc = split_count;
+		i = 0;
+	}
+	while (i < argc)
+	{
+			// printf("[%p]\n", argv);
+		thecontent = (t_si_content *)malloc(sizeof(t_si_content));
+		if (thecontent == NULL)
+		{
+			ft_putstr_fd("Error\n", 2);
+			return (1);
+			free(thecontent);
+		}
+		 error_checker_complete(argc, argv);
+		// printf("[%i]\n", argc);
+		thecontent->number = ft_atoi(argv[i]);
+		thecontent->position = i;
+		thecontent->index = 0;
+		new_node = ft_lstnew((void *)thecontent);
+		if (new_node == NULL)
+		{
+			ft_putstr_fd("Error\n", 2);
+			free(thecontent);
+		}
+		ft_lstadd_back(&stack_a, new_node);
+		i++;
 	}
 	// ft_printf("Stack A\n");
 	bubble_sort_index(stack_a);
 	set_index(stack_a);
 	// ft_printf("Stack A index sorting:\n");
-	// printlist(stack_a);
+	//  printlist(stack_a);
 	bubble_sort_back(stack_a);
 	// ft_printf("Stack back to possition:A\n");
 	// printlist(stack_a);
-	radix_sort(&stack_a, &stack_b);
+	// three_numbers(&stack_a);
+	if (get_list_length(stack_a) == 2)
+	{
+		two_numbers(&stack_a);
+		// ft_printf("Stack A after two_numbers\n");
+		// printlist(stack_a);
+
+	}
+	if (get_list_length(stack_a) == 3)
+	{
+		three_numbers(&stack_a);
+		// ft_printf("Stack A after threenumbers sort\n");
+		// printlist(stack_a);
+	}
+	if (get_list_length(stack_a) > 3)
+	{
+		radix_sort(&stack_a, &stack_b);
+	}
 	// ft_printf("Stack A after redix sort\n");
 	// printlist(stack_a);
 	// Funktion mit der ich dann die Zahlen sortiere
@@ -488,3 +522,9 @@ void	remove_leading_zeros(char *str)
 // also ich sortiere mit bubble sort dann sortier ich wieder zurueck nach possition und dann sortiere ich mit redix sort aber nach dem index mit den operatinen
 // ich muss noch den radix sort fuer ohne " " fertig machen und fuer die mit "" alles noch anpassen
 //
+// to do
+// Nullen vor der error kontrolle wegschneiden
+// -5 - behandeln
+// 0 und -0 als doppelte zahlen behandeln
+// 3er extra sortierung machen
+// aus dreier sortierung 5er sortierung machen

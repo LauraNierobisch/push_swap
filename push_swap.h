@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:03:25 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/29 19:48:28 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/08/03 20:02:39 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,12 @@ int		error_checker_complete(int argc, char *argv[]);
 void	error_for_quotes(char *argv);
 int		radix_sort(t_list **stack_a, t_list **stack_b);
 int		is_sorted(t_list *list);
+void	three_numbers(t_list **list);
+void	rev_rotate_a(t_list **stack_a);
+int		get_list_length(t_list *stack);
+int		zero_together(int argc, char *argv[]);
+void	remove_leading_zeros(char *str);
+void	two_numbers(t_list **list);
+int		numbers_only(int argc, char **argv);
+
 #endif
