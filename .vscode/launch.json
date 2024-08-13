@@ -5,9 +5,15 @@
 		"name": "C/C++ Runner: Debug Session",
 		"type": "lldb",
 		"request": "launch",
+<<<<<<< HEAD
 		"args": ["12", "1","22"],
 		"cwd": "/Users/lnierobi/Desktop/push_swap_git",
 		"program": "/Users/lnierobi/Desktop/push_swap_git/push_swap",
+=======
+		"args": ["-214 3 6 45"],
+		"cwd": "/Users/lnierobi/Desktop/push_swap_rettung",
+		"program": "/Users/lnierobi/Desktop/push_swap_rettung/push_swap",
+>>>>>>> ffe83643c09a2d86a8cd03cb5c9751b839699e90
     }
 ]
 
