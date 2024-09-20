@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 12:04:17 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/09/20 14:49:10 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/09/20 17:17:23 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,24 +68,16 @@ void	number_to_list(int num, int pos, t_list **head)
 	}
 }
 
-void	bubble_sort_index(t_list *head)
+void	bubble_sort_index(t_list *head, int *swapped, t_list *lptr)
 {
-	int				swapped;
 	t_list			*ptr1;
-	t_list			*lptr;
 	t_si_content	*temp_content;
 	t_si_content	*content1;
 	t_si_content	*content2;
 
-	lptr = NULL;
-	if (head == NULL)
+	while (*swapped)
 	{
-		return ;
-	}
-	swapped = 1;
-	while (swapped)
-	{
-		swapped = 0;
+		*swapped = 0;
 		ptr1 = head;
 		while (ptr1->next != lptr)
 		{
@@ -96,7 +88,7 @@ void	bubble_sort_index(t_list *head)
 				temp_content = ptr1->content;
 				ptr1->content = ptr1->next->content;
 				ptr1->next->content = temp_content;
-				swapped = 1;
+				*swapped = 1;
 			}
 			ptr1 = ptr1->next;
 		}
@@ -166,37 +158,43 @@ int	get_max_bits(t_list *stack)
 	return (bits);
 }
 
-int	radix_sort(t_list **stack_a, t_list **stack_b)
+static void	while_max(t_list **stack_a, t_list **stack_b, int i)
 {
 	t_si_content	*content;
 	int				len;
+	int				j;
+	int				num;
 
+	j = 0;
+	len = get_list_length(*stack_a);
+	while (j < len)
+	{
+		content = (t_si_content *)(*stack_a)->content;
+		num = content->index;
+		if (((num >> i) & 1) == 1)
+		{
+			rotate_a(stack_a);
+		}
+		else
+		{
+			push_b(stack_a, stack_b);
+		}
+		j++;
+	}
+}
+
+int	radix_sort(t_list **stack_a, t_list **stack_b)
+{
 	int	i;
-	int	j;
-	int	num;
 	int	max_bits;
+
 	i = 0;
 	if (is_sorted(*stack_a))
 		return (0);
 	max_bits = get_max_bits(*stack_a);
 	while (i < max_bits)
 	{
-		j = 0;
-		len = get_list_length(*stack_a);
-		while (j < len)
-		{
-			content = (t_si_content *)(*stack_a)->content;
-			num = content->index;
-			if (((num >> i) & 1) == 1)
-			{
-				rotate_a(stack_a);
-			}
-			else
-			{
-				push_b(stack_a, stack_b);
-			}
-			j++;
-		}
+		while_max(stack_a, stack_b, i);
 		while (*stack_b != NULL)
 		{
 			push_a(stack_a, stack_b);
@@ -219,22 +217,17 @@ void	set_index(t_list *head)
 		head = head->next;
 	}
 }
-void	bubble_sort_back(t_list *head)
+
+void	bubble_sort_back(t_list *head, t_list *lptr, int *swapped)
 {
-	int				swapped;
 	t_list			*ptr1;
-	t_list			*lptr;
 	t_si_content	*content1;
 	t_si_content	*content2;
 	t_si_content	*temp_content;
 
-	lptr = NULL;
-	if (head == NULL)
-		return ;
-	swapped = 1;
-	while (swapped)
+	while (*swapped)
 	{
-		swapped = 0;
+		*swapped = 0;
 		ptr1 = head;
 		while (ptr1->next != lptr)
 		{
@@ -245,7 +238,7 @@ void	bubble_sort_back(t_list *head)
 				temp_content = ptr1->content;
 				ptr1->content = ptr1->next->content;
 				ptr1->next->content = temp_content;
-				swapped = 1;
+				*swapped = 1;
 			}
 			ptr1 = ptr1->next;
 		}
@@ -311,23 +304,26 @@ int	main(int argc, char *argv[])
 	return (0);
 }
 
-void sort_stuff(t_list *stack_a, t_list *stack_b)
+void	sort_stuff(t_list *stack_a, t_list *stack_b)
 {
-	bubble_sort_index(stack_a);
+	int		swapped;
+	int		swapped2;
+	t_list	*lptr;
+
+	lptr = NULL;
+	swapped = 1;
+	swapped2 = 1;
+	if (stack_a)
+		bubble_sort_index(stack_a, &swapped, lptr);
 	set_index(stack_a);
-	bubble_sort_back(stack_a);
+	if (stack_a)
+		bubble_sort_back(stack_a, lptr, &swapped2);
 	if (get_list_length(stack_a) == 2)
-	{
 		two_numbers(&stack_a);
-	}
 	if (get_list_length(stack_a) == 3)
-	{
 		three_numbers(&stack_a);
-	}
 	if (get_list_length(stack_a) > 3)
-	{
 		radix_sort(&stack_a, &stack_b);
-	}
 }
 
 void	remove_leading_zeros(char *str)
@@ -351,11 +347,15 @@ void	remove_leading_zeros(char *str)
 	}
 	str[j] = '\0';
 }
-void count_for_split(int argc, char **argv)
+
+void	count_for_split(int argc, char **argv)
 {
-	int split_count = 0;
-	int i = 0;
-		if (argc == 2)
+	int	split_count;
+	int	i;
+
+	split_count = 0;
+	i = 0;
+	if (argc == 2)
 	{
 		argv = ft_split(argv[1], ' ');
 		split_count = 0;
