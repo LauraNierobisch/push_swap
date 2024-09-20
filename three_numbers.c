@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 14:38:20 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/08/03 15:35:41 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/09/20 11:13:20 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,14 @@ void	three_numbers(t_list **list)
 		else if (next->index == 0)
 		{
 			if (temp->index == 2)
-			{
 				rotate_a(&current);
-			}
 			else
-			{
 				swap_a(&current);
-			}
 		}
 		else
 		{
 			if (temp->index == 1)
-			{
 				rev_rotate_a(&current);
-			}
 			else
 			{
 				rotate_a(&current);
@@ -60,10 +54,9 @@ void	three_numbers(t_list **list)
 
 void	two_numbers(t_list **list)
 {
-	t_list *current;
+	t_list	*current;
 
 	current = *list;
-
 	if (get_list_length(current) == 2)
 	{
 		if (!is_sorted(current))

@@ -6,11 +6,45 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 12:04:17 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/08/03 20:27:51 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/09/20 11:52:56 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int	ft_array_length(char **array)
+{
+	int	length;
+
+	length = 0;
+	while (array[length] != NULL)
+		length++;
+	return (length);
+}
+
+void	ft_array_free(char **array)
+{
+	int	length;
+
+	if (array == NULL)
+		return ;
+	length = ft_array_length(array);
+	length--;
+	while (length >= 0)
+	{
+		if (array[length])
+		{
+			free(array[length]);
+			array[length] = NULL;
+		}
+		length--;
+	}
+	if (array)
+	{
+		free(array);
+		array = NULL;
+	}
+}
 
 void	number_to_list(int num, int pos, t_list **head)
 {
@@ -395,24 +429,32 @@ void	bubble_sort_back(t_list *head)
 	}
 }
 
+void	mycontclear(void *content)
+{
+	if (content)
+		free(content);
+}
+
 int	main(int argc, char *argv[])
 {
-	// char			*str;
 	int				i;
 	t_list			*stack_a;
 	t_list			*stack_b;
 	t_si_content	*thecontent;
 	t_list			*new_node;
 	int				split_count;
+	int				err_flag;
 
+	// char			*str;
 	split_count = argc;
 	i = 1;
+	err_flag = 0;
 	thecontent = NULL;
 	stack_a = NULL;
 	stack_b = NULL;
-	 if (argc == 1)
-	 {
-	 	return (0);
+	if (argc == 1)
+	{
+		return (0);
 	}
 	if (argc == 2)
 	{
@@ -422,7 +464,6 @@ int	main(int argc, char *argv[])
 		// error_for_quotes(argv[1]);
 		// new_split(str, &stack_a);
 		argv = ft_split(argv[1], ' ');
-
 		split_count = 0;
 		while (argv[split_count] != NULL)
 		{
@@ -432,17 +473,23 @@ int	main(int argc, char *argv[])
 		argc = split_count;
 		i = 0;
 	}
-	while (i < argc)
+	while (i < argc && !err_flag)
 	{
-			// printf("[%p]\n", argv);
+		// printf("[%p]\n", argv);
 		thecontent = (t_si_content *)malloc(sizeof(t_si_content));
 		if (thecontent == NULL)
 		{
 			ft_putstr_fd("Error\n", 2);
 			return (1);
-			free(thecontent);
 		}
-		 error_checker_complete(argc, argv);
+		err_flag = error_checker_complete(argc, argv);
+		if (err_flag)
+		{
+			if (argv && argc == 1)
+				ft_array_free(argv);
+			free(thecontent);
+			break ;
+		}
 		// printf("[%i]\n", argc);
 		thecontent->number = ft_atoi(argv[i]);
 		thecontent->position = i;
@@ -470,7 +517,6 @@ int	main(int argc, char *argv[])
 		two_numbers(&stack_a);
 		// ft_printf("Stack A after two_numbers\n");
 		// printlist(stack_a);
-
 	}
 	if (get_list_length(stack_a) == 3)
 	{
@@ -486,9 +532,9 @@ int	main(int argc, char *argv[])
 	// printlist(stack_a);
 	// Funktion mit der ich dann die Zahlen sortiere
 	// free_list(stack_a);
+	ft_lstclear(&stack_a, mycontclear);
+	ft_lstclear(&stack_b, mycontclear);
 	return (0);
-	free_list(stack_a);
-	free_list(stack_b);
 }
 
 void	remove_leading_zeros(char *str)
