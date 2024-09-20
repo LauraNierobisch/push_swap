@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 12:04:17 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/09/20 11:52:56 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/09/20 14:49:10 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,106 +68,6 @@ void	number_to_list(int num, int pos, t_list **head)
 	}
 }
 
-int	new_split(const char *str, t_list **head)
-{
-	int	num;
-	int	in_number;
-	int	position;
-
-	num = 0;
-	in_number = 0;
-	position = 0;
-	while (*str != '\0')
-	{
-		if (ft_isdigit(*str))
-		{
-			num = num * 10 + (*str - '0');
-			in_number = 1;
-		}
-		else if (in_number)
-		{
-			number_to_list(num, position, head);
-			num = 0;
-			in_number = 0;
-		}
-		if (!ft_isdigit(*str))
-		{
-			position++;
-		}
-		str++;
-	}
-	if (in_number)
-	{
-		number_to_list(num, position, head);
-	}
-	return (0);
-}
-
-// void	number_to_list(int num, t_list **head)
-// {
-// 	t_list	*new_node;
-// 	int		*num_ptr;
-// 	int		i;
-
-// 	// t_si_content	*thecontent;
-// 	i = 0;
-// 	// thecontent = NULL;
-// 	num_ptr = malloc(sizeof(int));
-// 	if (num_ptr != NULL)
-// 	{
-// 		*num_ptr = num;
-// 		new_node = ft_lstnew(num_ptr);
-// 		if (new_node != NULL)
-// 		{
-// 			ft_lstadd_back(head, new_node);
-// 			i++;
-// 		}
-// 		else
-// 		{
-// 			free(num_ptr);
-// 		}
-// 		// thecontent->position = i - 1;
-// 	}
-// }
-
-// int	new_split(const char *str, t_list **head)
-// {
-// 	int				num;
-// 	int				in_number;
-// 	t_si_content	*thecontent;
-// 	const char *start_str = str;
-
-// 	thecontent = (t_si_content *)malloc(sizeof(t_si_content));
-// 	if (thecontent == NULL)
-// 	{
-// 		ft_putstr_fd("Error\n", 2);
-// 		return (1);
-// 		free(thecontent);
-// 	}
-// 	num = 0;
-// 	in_number = 0;
-// 	while (*str != '\0')
-// 	{
-// 		if (ft_isdigit(*str))
-// 		{
-// 			num = num * 10 + (*str - '0');
-// 			in_number = 1;
-// 		}
-// 		else if (in_number)
-// 		{
-// 			number_to_list(num, head);
-// 			num = 0;
-// 			in_number = 0;
-// 		}
-// 		str++;
-// 	}
-// 	if (in_number)
-// 		number_to_list(num, head);
-// 	thecontent->position = (int)(str - start_str -1);
-// 	return(0);
-// }
-
-// oldnew
 void	bubble_sort_index(t_list *head)
 {
 	int				swapped;
@@ -217,91 +117,13 @@ int	is_sorted(t_list *list)
 		next_content = (t_si_content *)current->next->content;
 		if (current_content->number > next_content->number)
 		{
-			return (0); // Liste ist nicht sortiert
+			return (0);
 		}
 		current = current->next;
 	}
-	return (1); // Liste ist sortiert
+	return (1);
 }
-// int get_list_length(t_list *stack)
-// {
-// 	int len;
-// 	t_list *current;
 
-// 	len = 0;
-// 	current = stack;
-// 	while (current != NULL)
-// 	{
-// 		current = current->next;
-// 		len++;
-// 	}
-
-// 	return (len);
-// }
-
-// int get_max_bits(t_list *stack)
-// {
-// 	int max_num;
-// 	int bits;
-// 	t_list *current;
-// 	t_si_content *content;
-
-// 	max_num = 0;
-// 	bits = 0;
-// 	current = stack;
-// 	if (stack == NULL)
-// 		return (0);
-// 	while (current != NULL)
-// 	{
-// 		content = (t_si_content *)current->content;
-// 		if (content->index > max_num)
-// 			max_num = content->index;
-// 		current = current->next;
-// 	}
-// 	while ((max_num >> bits) != 0)
-// 		bits++;
-// 	return (bits);
-// }
-
-// int radix_sort(t_list **stack_a, t_list **stack_b)
-// {
-// 	t_si_content *content;
-// 	int len;
-// 	int i, j, num, max_bits;
-
-// 	i = 0;
-// 	if (is_sorted(*stack_a))
-// 		return (0);
-// 	max_bits = get_max_bits(*stack_a);
-// 	while (i < max_bits)
-// 	{
-// 		j = 0;
-// 		len = get_list_length(*stack_a);
-// 		while (j < len)
-// 		{
-// 			content = (t_si_content *)(*stack_a)->content;
-// 			num = content->index;
-// 			if (((num >> i) & 1) == 1)
-// 			{
-// 				rotate_a(stack_a); // Behalte das Element in stack_a
-// 			}
-// 			else
-// 			{
-// 				push_b(stack_a, stack_b); // Verschiebe das Element nach stack_b
-// 			}
-// 			j++;
-// 		}
-// 		while (*stack_b != NULL)
-// 		{
-// 			push_a(stack_a, stack_b);
-// Verschiebe die Elemente zurück nach stack_a
-// 		}
-// 		i++;
-// 	}
-// 	return (0);
-// }
-
-//?kind of worked?
 int	get_list_length(t_list *stack)
 {
 	int		len;
@@ -343,13 +165,16 @@ int	get_max_bits(t_list *stack)
 		bits++;
 	return (bits);
 }
+
 int	radix_sort(t_list **stack_a, t_list **stack_b)
 {
 	t_si_content	*content;
 	int				len;
 
-	// t_list			*current;
-	int i, j, num, max_bits;
+	int	i;
+	int	j;
+	int	num;
+	int	max_bits;
 	i = 0;
 	if (is_sorted(*stack_a))
 		return (0);
@@ -381,7 +206,6 @@ int	radix_sort(t_list **stack_a, t_list **stack_b)
 	return (0);
 }
 
-// old
 void	set_index(t_list *head)
 {
 	int				index;
@@ -442,40 +266,19 @@ int	main(int argc, char *argv[])
 	t_list			*stack_b;
 	t_si_content	*thecontent;
 	t_list			*new_node;
-	int				split_count;
 	int				err_flag;
 
-	// char			*str;
-	split_count = argc;
 	i = 1;
 	err_flag = 0;
 	thecontent = NULL;
 	stack_a = NULL;
 	stack_b = NULL;
 	if (argc == 1)
-	{
 		return (0);
-	}
 	if (argc == 2)
-	{
-		// str = argv[1];
-		// error_checker_complete(argc, argv);
-		// error_for_quotes(*argv);
-		// error_for_quotes(argv[1]);
-		// new_split(str, &stack_a);
-		argv = ft_split(argv[1], ' ');
-		split_count = 0;
-		while (argv[split_count] != NULL)
-		{
-			split_count++;
-			// printf("[[%i]]\n", split_count);
-		}
-		argc = split_count;
-		i = 0;
-	}
+		count_for_split(argc, argv);
 	while (i < argc && !err_flag)
 	{
-		// printf("[%p]\n", argv);
 		thecontent = (t_si_content *)malloc(sizeof(t_si_content));
 		if (thecontent == NULL)
 		{
@@ -490,7 +293,6 @@ int	main(int argc, char *argv[])
 			free(thecontent);
 			break ;
 		}
-		// printf("[%i]\n", argc);
 		thecontent->number = ft_atoi(argv[i]);
 		thecontent->position = i;
 		thecontent->index = 0;
@@ -503,38 +305,29 @@ int	main(int argc, char *argv[])
 		ft_lstadd_back(&stack_a, new_node);
 		i++;
 	}
-	// ft_printf("Stack A\n");
+	sort_stuff(stack_a, stack_b);
+	ft_lstclear(&stack_a, mycontclear);
+	ft_lstclear(&stack_b, mycontclear);
+	return (0);
+}
+
+void sort_stuff(t_list *stack_a, t_list *stack_b)
+{
 	bubble_sort_index(stack_a);
 	set_index(stack_a);
-	// ft_printf("Stack A index sorting:\n");
-	//  printlist(stack_a);
 	bubble_sort_back(stack_a);
-	// ft_printf("Stack back to possition:A\n");
-	// printlist(stack_a);
-	// three_numbers(&stack_a);
 	if (get_list_length(stack_a) == 2)
 	{
 		two_numbers(&stack_a);
-		// ft_printf("Stack A after two_numbers\n");
-		// printlist(stack_a);
 	}
 	if (get_list_length(stack_a) == 3)
 	{
 		three_numbers(&stack_a);
-		// ft_printf("Stack A after threenumbers sort\n");
-		// printlist(stack_a);
 	}
 	if (get_list_length(stack_a) > 3)
 	{
 		radix_sort(&stack_a, &stack_b);
 	}
-	// ft_printf("Stack A after redix sort\n");
-	// printlist(stack_a);
-	// Funktion mit der ich dann die Zahlen sortiere
-	// free_list(stack_a);
-	ft_lstclear(&stack_a, mycontclear);
-	ft_lstclear(&stack_b, mycontclear);
-	return (0);
 }
 
 void	remove_leading_zeros(char *str)
@@ -558,19 +351,17 @@ void	remove_leading_zeros(char *str)
 	}
 	str[j] = '\0';
 }
-// main plan :
-// wenn es nur 2 zahlen sind muss ich erst ueberprüfen ob die sortiert sind und wenn nicht dann nur swapen.
-// der algorithmus ist scheisse und ich muss was besseres finden weil ich unter 700 schritte pro 100 zahlen kommen muss.
-
-// jeder zahl ein index geben mit bubble sort um dann die zahlen zu sortieren und dann mit redix sort sortieren aber nur die indexe nicht die zahlen an sich
-// und dann mit redix sort sortieren die liste mit den indexen die dann aber noch durcheinander sind
-// und dann hab ih die kleineren zahlen und die - zahlen abgedeckt
-// also ich sortiere mit bubble sort dann sortier ich wieder zurueck nach possition und dann sortiere ich mit redix sort aber nach dem index mit den operatinen
-// ich muss noch den radix sort fuer ohne " " fertig machen und fuer die mit "" alles noch anpassen
-//
-// to do
-// Nullen vor der error kontrolle wegschneiden
-// -5 - behandeln
-// 0 und -0 als doppelte zahlen behandeln
-// 3er extra sortierung machen
-// aus dreier sortierung 5er sortierung machen
+void count_for_split(int argc, char **argv)
+{
+	int split_count = 0;
+	int i = 0;
+		if (argc == 2)
+	{
+		argv = ft_split(argv[1], ' ');
+		split_count = 0;
+		while (argv[split_count] != NULL)
+			split_count++;
+		argc = split_count;
+		i = 0;
+	}
+}

@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:30:54 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/09/20 11:01:12 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/09/20 12:17:36 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,41 +41,20 @@ void	ft_lstremove_front(t_list **lst)
 	free(start);
 }
 
-// old
 // void	printlist(t_list *head)
 // {
-// 	t_list			*temp;
+// 	t_list			*current;
 // 	t_si_content	*content;
 
-// 	if (head == NULL)
+// 	current = head;
+// 	while (current != NULL)
 // 	{
-// 		return ;
+// 		content = (t_si_content *)current->content;
+// 		printf("Value: %d, Index: %d, position: %d\n",
+// 		content->number, content->index, content->position);
+// 		current = current->next;
 // 	}
-// 	temp = head;
-// 	while (temp != NULL)
-// 	{
-// 		content = (t_si_content *)temp->content;
-// 		ft_printf("Number: %d, Position: %d, Index: %d\n", content->number,
-// 			content->position, content->index);
-// 		temp = temp->next;
-// 		if (temp == head)
-// 			break ;
-// 	}
-// 	ft_printf("\n");
 // }
-void	printlist(t_list *head)
-{
-	t_list			*current;
-	t_si_content	*content;
-
-	current = head;
-	while (current != NULL)
-	{
-		content = (t_si_content *)current->content;
-		printf("Value: %d, Index: %d, position: %d\n", content->number, content->index, content->position);
-		current = current->next;
-	}
-}
 
 void	free_list(t_list *head)
 {
@@ -116,6 +95,7 @@ void	insert_node(t_list **head, t_list *new_node)
 		new_node->next = *head;
 	}
 }
+
 t_list	*create_node(int value)
 {
 	t_si_content	*content;

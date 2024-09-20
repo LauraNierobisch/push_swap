@@ -6,7 +6,7 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 09:36:01 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/08/03 14:56:55 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/09/20 12:14:53 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ void	rev_rotate_a(t_list **stack_a)
 	t_list	*second_last;
 	t_list	*last;
 
-	// second_last = get_sec_last(*stack_a);
-	// last = second_last->next;
 	if (*stack_a != NULL && (*stack_a)->next != *stack_a)
 	{
 		second_last = get_sec_last(*stack_a);

@@ -6,31 +6,16 @@
 /*   By: lnierobi <lnierobi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 12:04:07 by lnierobi          #+#    #+#             */
-/*   Updated: 2024/07/29 16:57:42 by lnierobi         ###   ########.fr       */
+/*   Updated: 2024/09/20 12:21:28 by lnierobi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// void	rotate_a(t_list **stack_a)
-// {
-// 	t_list	*last;
-
-// 	if (*stack_a != NULL && (*stack_a)->next != *stack_a)
-// 	{
-//
-// 		last = *stack_a;
-// 		while (last->next != *stack_a)
-// 			last = last->next;
-// 		*stack_a = (*stack_a)->next;
-// 		last->next = *stack_a;
-// 	}
-// }
 void	rotate_a(t_list **stack_a)
 {
 	t_list	*first;
 	t_list	*last;
-
 
 	if (*stack_a == NULL || (*stack_a)->next == NULL)
 	{
